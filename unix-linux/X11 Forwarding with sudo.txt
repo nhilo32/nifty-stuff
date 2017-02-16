@@ -1,0 +1,69 @@
+X11 forwarding with sudo su command.
+
+
+Error:
+
+oracle@phl1s430> xclock
+Xlib: connection to "localhost:10.0" refused by server
+Xlib: Client could not successfully authenticate itself. Connection request refused by the X server.
+Error: Can't open display: localhost:10.0
+
+
+How to fix error:
+
+Method One.
+
+1. Before you "sudo su - user", do this:
+$ xauth extract /tmp/xauthstuff $DISPLAY
+
+If you get the following error user Method Two.
+$ xauth extract test $DISPLAY
+No matches found, authority file "test" not written
+
+
+2. After you sudo, do this:
+# xauth merge /tmp/xauthstuff
+
+3. now run xclock or some other GUI program
+# xclock
+
+PS remember to rm /tmp/xauthstuff afterwards
+
+
+
+Method Two
+
+1.Enable X-11 Forwarding in your client
+2.Log in as your normal user
+3.echo $DISPLAY to get the associated display 
+4.xauth list, find the display number which corresponds with what you found in #3 and copy it 
+5.Sudo to root xauth add <paste in what you copied from #4> 
+6.Now you can execute commands as root and will be able to se the X11 Forwarding connection
+
+Example:
+
+user1# xauth list
+phllc2zkyq1.use1.ad.dla.mil:0  MIT-MAGIC-COOKIE-1  546e3574746349664d6e7a577a2e4356
+phl1s430/unix:11  MIT-MAGIC-COOKIE-1  bcf2359e2d8424702b3db041b1ae6118
+phl1s430/unix:10  MIT-MAGIC-COOKIE-1  78866a8e7c171d64eb854e123979401f
+
+user1# echo $DISPLAY
+localhost:10.0
+
+user1# sudo su - oracle
+
+user2# xauth list
+phllc2zkyq1.use1.ad.dla.mil:0  MIT-MAGIC-COOKIE-1  546e3574746349664d6e7a577a2e4356
+phl1s430/unix:11  MIT-MAGIC-COOKIE-1  bcf2359e2d8424702b3db041b1ae6118
+phl1s430/unix:10  MIT-MAGIC-COOKIE-1  ce2e0f7426cb299379c1eeed9b779bfc
+
+user2# xauth add phl1s430/unix:10  MIT-MAGIC-COOKIE-1  78866a8e7c171d64eb854e123979401f
+
+user2# xauth list
+phllc2zkyq1.use1.ad.dla.mil:0  MIT-MAGIC-COOKIE-1  546e3574746349664d6e7a577a2e4356
+phl1s430/unix:11  MIT-MAGIC-COOKIE-1  bcf2359e2d8424702b3db041b1ae6118
+phl1s430/unix:10  MIT-MAGIC-COOKIE-1  78866a8e7c171d64eb854e123979401f
+
+Now xclock should work. However it should be noted that if you log in with the user you just
+sudoed to it may no longer work until you reverse it.
+

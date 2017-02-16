@@ -1,0 +1,82 @@
+BEFORE YOU BEGIN!!!! make sure you have the root password. Not sudo... the root password...
+if you only have sudo, you MIGHT be able to copy the /etc/shadow file change the password
+and then either restore the shadow file when finished or copy the hash from the old shadow
+file into the new one for the root user.
+
+
+1. Go to single usermode
+
+init 1
+
+
+2. rename /var/log to /var/log_hold
+
+mv /var/log /var/log_hold
+
+
+3. create filesystem to mount to.
+
+mkdir /var/log
+
+
+4. find logical volume group within which to build the logical volume
+
+vgdisplay
+
+
+5. create, format (to ext4) and mount logical volume
+
+
+lvcreate -n log -L 3G vg_phl1s432
+
+-n log = name of the logical volume
+-L 3G = size of the logical volume
+data_phl1s432 = name of the volume group
+
+mkfs.ext4 /dev/vg_phl1s432/log
+
+mount /dev/vg_phl1s432/log /var/log
+
+edit the /etc/fstab to make changes and mounting permanant
+
+/dev/vg_phl1s432/log		/var/log		ext4	defaults	1 2
+
+
+6. copy everything from /var/log_hold to /var/log
+
+cp /var/log_hold/* /var/log/
+
+
+7. resync selinux
+
+restorecon -vr /var
+
+
+8. reboot
+
+reboot
+
+
+For /var/log/audit you can query what processes are using that directory. Probably just auditd. You can just 
+shutdown the service or kill the processes. Then start from step 2.
+
+lsof +D /var/log/audit
+
+
+Problems: 
+
+messed up /etc/fstab:
+if you screw up the /etc/fstab you will need to do the following
+After rebooting will be prompted for the root password.
+Enter it.
+Edit the /etc/fstab to remove the offending line. You may have to remount the root file system if /etc in on it.
+You can do that with the following command.
+mount -o remount,rw /
+It is also possible you will have to remount from one run level or more up. This can be accomplished by manually 
+mounting with above mount command and then using the init command to move up a level.
+
+
+Permissions error after rebooting or processes not logging to the new directory. try the below command again 
+and reboot.
+
+restorecon -vr /var

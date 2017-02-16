@@ -1,0 +1,7 @@
+check user
+pam_tally2 --user=username 
+
+
+reset user
+pam_tally2 --user=username --reset 
+

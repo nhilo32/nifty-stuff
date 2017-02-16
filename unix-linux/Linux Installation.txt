@@ -1,0 +1,127 @@
+Linux Installation
+
+ 
+
+1. Set the grub password.
+
+To do this manually after the OS is installed.
+- execute the grub-md5-crypt command and copy the resulting hash
+- edit the /boot/grub/grub.conf file. After the "splashimage" line enter the following line "password --md5 md5-hash-you-copied"
+
+2. Choose Custom layout. Build the following mount points.
+/ 20GB ext3
+/var 20 GB ext3 (this is optional, but Linux keeps most of its log files here, if it has its own mount point it one of them can blow up without taking the OS with it) 
+/tmp 20 GB ext3 (I believe STIG mandates a seperate mount point for temp) 
+/swap swap(at least as big as the amount of RAM on the system)
+/oracle 20 GB ext3 (this is a minimum 10 would be better)
+/u00-03 20 GB 3xt3 (this only needs to be as big as your databases are now and will be in the forseeable future.
+
+3. Choose software to install. Select "Basic Server" at the top and "Customize Now" at the bottom and then choose the following in the configuration Base System - keep everyting that is already checked and add "Compatibility Libraries"
+Servers - check system administration tools Web Services - nothing Databases - nothing System Management - nothing Virtualization - nothing Desktops - check Desptop, General Purpose Desktop, X Windows System, Graphical Administration Tools, in optional packages select system-config-kickstart Applications - nothing Development - check Additional Development, Desktop Platform Development, Development Tools, Server Platform Development
+- you probably don't need anything here other than all the gcc stufff (gcc, gcc-c++, gcc-devel and whatnot) Languages - nothing
+
+
+4. create the dba group and the create the oracle user as part of the dba group.
+
+5. change ownership of the /oracle and /uu0 to the oracle user and dba group.
+
+6. Execute the SRR commands.
+
+ 
+
+SRR Commands
+
+ 
+
+1. In /etc/aliases file comment out
+# trap decode to catch security attacks
+# decode: root
+
+Comment out users shutdown and halt in the /etc/passwd file.
+
+
+2. Remove users halt and shutdown.
+userdel halt, shutdown
+
+Httpd and samba elements seem to get installed somehow despite not being selected during installation.
+Find out what version it is and remove it.
+yum search http
+yum remove httpd-tools
+
+yum search smb
+yum remove libsmbclient
+
+
+3. If grub password is not set. Set it.
+To do this manually after the OS is installed.
+- execute the grub-md5-crypt command and copy the resulting hash
+- edit the /boot/grub/grub.conf file. After the "splashimage" line enter the following line password --md5 md5-hash-you-copied
+
+
+4. Make sure Single User mode (init 1) requires a password. Note - this is not necessary if servers is in a controlled access area.
+- not sure how to do this yet.
+
+
+5. chmod -R 700 /root
+
+
+6. Edit the /etc/ssh/sshd_config PermitRootLogin line and set it to no. Default is yes.
+PermetRootLogin no
+
+
+7. Set permissions in the oraInventory home to 755 or better.
+chmod -R 755 /etc/oracle/oraInventory
+
+
+8. Make sure /etc/securetty has only the word "console" in it. If there is more delete it.
+
+9. Edit the /etc/login.defs file to the following.
+PASS_MAX_DAYS 60
+PASS_MIN_DAYS 1
+PASS_MIN_LEN 15
+PASS_WARN_AGE 7
+FAIL_DELAY 5
+
+10. chmod -R 640 /var/log
+
+11. chmod -R 750 /home (and then chmod 755 /home)
+
+12. set umask to 077 for users above and below UID 199 in the /etc/profile, /etc/baschrc and /etc/csh.cshrc files
+
+13. set permissions as follows
+chmod -R 600 /etc/cron.d
+chmod -R 700 /etc/cron.daily
+chmod -R 700 /etc/cron.hourly
+chmod 600 /etc/cron.deny
+
+14. create an /etc/at.allow file. contents of the file are simply user names. one line per user.
+
+15. edit the /etc/sysctl.conf file and add the following line.
+net.ipv4.tcp_max_sys_backlog = 1280
+
+16. set permission for the /etc/services file chmod 644 /etc/services
+
+17. remove tcpdump
+yum remove tcpdump
+
+18. chmod 700 /bin/traceroute
+
+19. create a welcome warning/message when you log on via ssh create a file called /etc/ssh/banner with your welcome/warning.
+- edit the /etc/ssh/sshd_config file. replace the "Banner none" line with the line "Banner /path/to/banner"
+
+20. remove samba if it exists. yum search smb. /etc/samba.
+
+21. edit the hosts.allow and hosts.deny files.
+
+- add the following lines to the hosts.allow file 
+#ALL:ALL
+#ALL.dscp.dla.mil
+sshd sshd1 sshd2 : ALL : ALLOW
+
+- add the following line to hosts.deny file 
+ALL:ALL
+
+22. chmod 600 /etc/sysctl.conf
+
+23. Install Oracle
+
