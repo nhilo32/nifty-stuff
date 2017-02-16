@@ -1,0 +1,30 @@
+#loop through output of a command and do stuff
+
+for OUTPUT in $(command)
+do
+	commands
+done
+
+for OUTPUT in $(ls ../REPORTS)
+do
+
+  export SRRDIR=$OUTPUT
+  export LOCVAR=../REPORTS/
+  #cat $LOCVAR$SRRDIR/SRRreport* > ../XLSREPORTS/"$SRRDIR"_report.tab
+  echo ../XLSREPORTS/"$SRRDIR"_report.csv
+  ./srrformat
+
+done
+
+
+
+#parse through a file and do stuff
+while read p; 
+do
+  echo $p
+done < file.txt
+
+#file.txt contents
+one
+two
+three

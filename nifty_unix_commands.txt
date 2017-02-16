@@ -1,0 +1,129 @@
+# Unlock a user account
+passwd -u username
+pam_tally2 -u username -r
+
+
+
+# find the size of a folder.
+du -sh ./*
+
+
+# for loop (command)
+for OUTPUT in $(command) #or `command`
+do
+  commands
+done
+
+#or
+
+for OUTPUT in $(ls ../directory) #or `ls ../directory`
+do
+  echo $OUTPUT
+done
+
+# for loop (read file)
+while read p;
+do
+ echo $p
+ export ORACLE_SID=$p
+ sqlplus "/ as sysdba" @code.sql >> out 
+done < databases 
+
+
+
+### EMAIL
+
+mailx  -s "test subject"  neal.daikawa.ctr@dla.mil < body.txt
+
+
+
+### AWK
+
+# list all files in a folder and create a script to do something to them
+ll | awk '{print "cp "$9" /new/location'/"$9}'
+
+# break text into blocks with a starting and ending pattern
+awk '/starting pattern/,/ending pattern/'
+
+# break text into blocks with only starting pattern.
+awk 'BEGIN {RS="starting pattern"} {print RS $0}'
+awk 'BEGIN { RS="Policy Check"; } { print RS $0 }'
+
+# break text into blocks, search for and print only blocks that match pattern
+awk 'BEGIN {RS="starting pattern"} /paturn to search for/ {print RS $0}'
+awk 'BEGIN { RS="Policy Check"; } /Finding Status: O/ { print RS $0}'
+
+# break text into columns seperated by : and print the 1st, 3rd and 5th fields. Fields 1 and 3 will be seperated by a space, field 3 and 5 will not.
+awk -F":" '{print $1, $3 $5}'
+
+# print two tabs and line breaks and convert it to upper case
+awk '{ print touppter($1) "\n \n \t \t" }'
+
+# awk if statement (~ equal to; !~ not equal to; use ~ for strings and == for numbers)
+awk '{ if ($1 ~ /pattern/) print "it is", $1}'
+
+# awk if else statement
+awk '{ if ($1 ~ /pattern/) print "it is", $1; else print "no it isnt", $1}'
+
+
+
+
+### SED
+
+# search for and replace a patter one time
+sed 's/find pattern/replace pattern/'
+
+# search for and replace a patter everywhere it occurs in the search string.
+sed 's/find pattern/replace pattern/g'
+
+# remove new lines (\n) or cartridge returns (\r)
+
+#this will get rid of all newline characters and replace them with a space
+sed -i ':a;N;$!ba;s/\n/ /g' filename
+1. create a label via :a
+2. append the current and next line to the pattern space via N
+3. if we are before the last line, branch to the created label $!ba ($! means not to do it on the last line (as there should be one final newline)).
+4. finally the substitution replaces every newline with a comma on the pattern space (which is the whole file).
+
+#the following two examples will replace specific new lines
+#this will replace \ntext with text.
+sed -i ':a;N;$!ba;s/\ntext/ text/g' filename
+
+#this will replace text\n with text.
+sed -i ':a;N;$!ba;s/text\n/text /g' filename
+
+sed -i ':a;N;$!ba;s/#000000;                     p/#000000; p/g' incomeStatement.html
+
+# Remove empty lines from text file
+# Use cat filename | od -c to see new line and cartridge return characters listed as \n and \r repectively
+
+tr -s '\n' < abc.txt
+
+grep -v "^$" abc.txt
+
+sed '/^$/d' abc.txt
+
+sed '/./!d' abc.txt
+
+awk '/./' abc.txt
+
+
+### GREP
+
+# Remove empty lines from text file
+grep -v "^$" abc.txt
+
+# search for multiple patterns
+grep -E 'pattern1|pattern2'
+egrep 'pattern1|pattern2'
+
+
+### CRON
+minute (0-59), hour (0-23, 0 = midnight), day (1-31), month (1-12), day-of-week (0-6, 0 = Sunday), command 
+min hour day month day-of-week /command/to/execute > /log/file
+1 23 * * * /command (will execute command at 11:01 PM everyday)
+* 14 25 6 * /command (will execute command every min from 2:00PM to 2:59PM on the 26th of June)
+
+
+
+

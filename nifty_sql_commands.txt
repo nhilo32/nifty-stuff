@@ -1,0 +1,53 @@
+--DYNAMIC SQL
+-- :fdate = firstdate the ":" marks the bind variable
+-- also the for q'{stuff}' deals well with single quotes
+-- stmt := q'{'SELECT dept FROM table WHERE emp_name = 'Neal'}';
+
+  stmt := 'SELECT closeprice FROM '||tab_name||' WHERE tradedate = :fdate';
+    EXECUTE IMMEDIATE stmt1 INTO dateone USING firstdate;
+  dbms_output.put_line(dateone);
+
+--creat profile
+CREATE PROFILE TEMPONE LIMIT PASSWORD_VERIFY_FUNCTION NULL;
+
+
+--Data Pump (expdp/impdp) OS authentication can be done with the following
+
+expdp USERID="'/ as sysdba'" parfile=p.par
+
+--using only single quotes as below results in the following error
+expdp USERID='/ as sysdba' parfile=p.par
+LRM-00112: multiple values not allowed for parameter 'userid'
+
+
+--Set date format (if you require more see the not Date Format in database)
+alter session set nls_date_format = 'DD-MON-YYYY hh24:mi:ss';
+select to_char(sysdate, 'Mon DD, YYYY') from dual;
+
+--NLS_DATE_FORMAT only works on datatype DATE. If you are using TIMESTAMP datatype, 
+--that requires NLS_TIMESTAMP_FORMAT
+
+
+
+--Grant connect through to a user.
+ALTER USER connectingthroughuser GRANT CONNECT THROUGH loggingonuser;
+ALTER USER SUPDBA GRANT CONNECT THROUGH HED0425Z;
+
+--Create a directory 
+--Requires CREATE ANY DIRECTORY privilge
+CREATE OR REPLACE DIRECTORY direc AS '/path/to/folder';
+CREATE OR REPLACE DIRECTORY mmcdir AS '/u900/oracle/mmc/mmcdir';
+
+GRANT READ, WRITE ON DIRECTORY <directory_name> TO <schema_name>
+GRANT READ, WRITE ON DIRECTORY mmcdir TO PDI;
+
+
+-- Sample Cursor
+SET SERVEROUTPUT ON;
+DECLARE
+  CURSOR C1 IS select table_name from dba_tables where owner =  'MED_MC';
+BEGIN
+  FOR REC IN C1 LOOP
+    DBMS_OUTPUT.PUT_LINE(REC.table_name);
+  END LOOP;
+END;
