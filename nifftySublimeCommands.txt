@@ -1,0 +1,21 @@
+SEARCH AND REPLACE ALL FILES IN A FOLDER
+1. First make sure the folder is listed. If it is not "Project-->Add folder to project"
+2. Right click folder and select "Find in Folder"
+3. Fill in the three sections.
+       Find: - string to find
+       Where: place to search as well as optional, comma separated  filters
+           eg. C:\oracle, *.sql
+       Replace: string to replace with
+
+ITEM SELECTION
+select item and
+Ctrl+d (for selecting the next item)
+Alt+F3 (for selecting all like items)
+
+COLUMN SELECTION
+Right Mouse Button + Shift OR Middle Mouse Button
+Add to selection: Ctrl
+Subtract from selection: Alt
+
+COMMENT A LINE(S)
+Crtl+/
