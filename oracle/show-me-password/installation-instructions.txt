@@ -1,3 +1,5 @@
+http://show-me-password.tomecode.com/
+
 Show Me password
 
 The "Show me password" is a simple extension for Oracle SQL Developer or Oracle JDeveloper i.e. simple extension (tool) that decrypts all saved (encrypted) password for database connections, application server connection, servers etc. in SQL Developer or JDeveloper.
