@@ -1,0 +1,23 @@
+Show Me password
+
+The "Show me password" is a simple extension for Oracle SQL Developer or Oracle JDeveloper i.e. simple extension (tool) that decrypts all saved (encrypted) password for database connections, application server connection, servers etc. in SQL Developer or JDeveloper.
+Extension for Oracle SQL Developer (version: 4.x)
+Show Me Password
+Download Show Me PasswordSQL Developer v4.x
+Requirements
+
+    Oracle SQL Developer 4.0 (4.0.0.13.80 or higher)
+    Java 1.7 (or higher)
+
+Download and Install
+
+    1. Download the latest version of the extension for Oracle SQL Developer 4.x, to your machine 
+          - (the extension will be packaged as a zip file - pls. don't unzip the extension;)
+    2. In SQL Developer 4 use the help->Check for updates... and instead of choosing from the existing update centers, 
+        choose the "Install From Local File" option, and point to the zip file you have downloaded
+    3. Restart SQL Developer to complete the extension installation
+
+How to use
+
+    If you click menu "Show Me Password", then displays a window that contains a table (with columns: connection name,db host, SID, user name and decrypted (saved) password to database) with list of all stored connections to databases in SQL Developer
+
