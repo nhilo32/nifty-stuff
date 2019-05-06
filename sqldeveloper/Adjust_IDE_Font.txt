@@ -20,6 +20,9 @@ You want to open ide.properties. You’ll notice it is VERY well documented. The
 # example:
 Ide.FontSize.en=14
 
+Mine, I set english fontsize to 16:
+Ide.FontSize.en=16
+
 If you think 14 looks huge, one of my co-workers has his set to 21!
 This doesn’t control the font size for text in the editors and the data grids
 
