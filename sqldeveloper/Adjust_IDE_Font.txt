@@ -1,1 +1,26 @@
-test font.
+How to Change the UI Font Size for Oracle SQL Developer
+
+Link: https://www.thatjeffsmith.com/archive/2013/12/how-to-change-the-ui-font-size-for-oracle-sql-developer/
+
+And here’s where to set that property
+
+In Windows, you want to to go to the Application Data, Roaming Users directory that stores the settings files for SQL Developer. On my machine that’s here:
+C:\Users\jdsmith\AppData\Roaming\SQL Developer\system4.1.0.13.75\o.sqldeveloper.12.2.0.13.75
+
+Mine for version 19.
+C:\Users\hed0425\AppData\Roaming\SQL Developer\system19.1.0.094.2042\o.sqldeveloper
+
+
+Note: my version string at the end might be a different than yours depending on your version of SQL Developer.
+
+You want to open ide.properties. You’ll notice it is VERY well documented. There’s a section that speaks to Windows in particular. To change the default size for all look and feels, add this line, the uncommented one:
+
+# To modify the font size for a particular locale under all
+# look-and-feels, set the Ide.FontSize.<languageID> property. For
+# example:
+Ide.FontSize.en=14
+
+If you think 14 looks huge, one of my co-workers has his set to 21!
+This doesn’t control the font size for text in the editors and the data grids
+
+We have a preference in the UI for that.
