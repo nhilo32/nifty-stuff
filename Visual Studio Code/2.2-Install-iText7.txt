@@ -1,0 +1,13 @@
+Install iText7
+Pre-Reqs
+    Nuget Gallery
+    .NET Core
+    Create Project in Visual Studio Code
+
+1. View --> Command Palette...
+2. (in search box type) Nuget: Open NuGet Gallery
+3. (in search box type) iText
+4. (select) iText7 --> (click) Install
+
+iText7 examples
+https://kb.itextpdf.com/home/it7kb/examples/101-a-very-simple-table
