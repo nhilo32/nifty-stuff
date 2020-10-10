@@ -1,0 +1,5 @@
+
+Install .NET core
+1. (Click) Extensions - on the left, square boxes
+2. In search box type "C#"
+3. (select) C# for Visual Studio Code

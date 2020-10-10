@@ -1,0 +1,6 @@
+
+Install NuGet Gallery (if not already installed)
+1. (Click) Extensions - on the left, square boxes
+2. In search box type "Nuget"
+3. (select) Nuget Gallery
+4. (click) Install
