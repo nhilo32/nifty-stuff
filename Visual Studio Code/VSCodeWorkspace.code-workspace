@@ -1,13 +1,16 @@
 {
 	"folders": [
 		{
+			"name": "01-MyLocalFiles",
+			"path": "..\\..\\.."
+		},
+		{
+			"name": "nifty-stuff",
 			"path": ".."
 		},
 		{
-			"path": "..\\..\\..\\edit_2875s"
-		},
-		{
-			"path": "..\\..\\.."
+			"name": "edit_2785s",
+			"path": "..\\..\\..\\edit_2785s"
 		}
 	],
 	"settings": {}

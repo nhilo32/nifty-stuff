@@ -11,11 +11,9 @@ https://docs.microsoft.com/en-us/dotnet/core/tutorials/with-visual-studio-code
     The folder name becomes the project name and the namespace name by default. You'll add code later in the 
     tutorial that assumes the project namespace is HelloWorld.
 
-4. Open the Terminal in Visual Studio Code by selecting View > Terminal from the main menu.
-
-    The Terminal opens with the command prompt in the HelloWorld folder.
-
-5. In the Terminal, enter the following command:
-
-    .NET Core CLI
-    PS C:\01-MyLocalFiles\HelloWorld> dotnet new console
+4. Open the Terminal in Visual Studio Code
+    a. selecting View > Terminal from the main menu.
+        The Terminal opens with the command prompt in the HelloWorld folder.
+    b. In the Terminal, enter the following command:
+        .NET Core CLI
+        PS C:\01-MyLocalFiles\HelloWorld> dotnet new console
