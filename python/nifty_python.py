@@ -52,4 +52,9 @@ print(file.readline(3))
 for line in file: 
 	print(line, end='')
 	# end='' removes the extra line given with the print(line) statement
+
+# ***ERRORS***
+# UnicodeDecodeError: 'charmap' codec can't decode byte 0x9d
+# use the UTF8 encodeing flag
+file = open(filename, "r", encoding="utf8")
 	
