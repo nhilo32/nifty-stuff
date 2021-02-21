@@ -50,4 +50,6 @@ print(file.read())
 print(file.readline(3))
 # loops through the file and prints
 for line in file: 
-	print(line) 
+	print(line, end='')
+	# end='' removes the extra line given with the print(line) statement
+	
