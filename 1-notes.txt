@@ -1,13 +1,4 @@
-IronBank login credentials
-Username: Neal_Daikawa
-CLI Secret: HAkU29AmgepQQb1VGn6WJznKjSHC2EQA
-
-docker login -u <username> -p <cli_secret> registry1.dso.mil
-docker login -u Neal_Daikawa -p HAkU29AmgepQQb1VGn6WJznKjSHC2EQA registry1.dso.mil
-
-# to pull IronBank RHEL9
-docker pull registry1.dso.mil/ironbank/redhat/ubi/ubi9:9.3
-
+ip-10-22-4-6.us-gov-west-1.compute.internal
 
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 
