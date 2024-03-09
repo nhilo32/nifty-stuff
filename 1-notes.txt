@@ -9,7 +9,5 @@ docker login -u Neal_Daikawa -p HAkU29AmgepQQb1VGn6WJznKjSHC2EQA registry1.dso.m
 docker pull registry1.dso.mil/ironbank/redhat/ubi/ubi9:9.3
 
 
-[root@88976ee7b3a0 /]# systemctl start docker
-System has not been booted with systemd as init system (PID 1). Can't operate.
-Failed to connect to bus: Host is down
-[root@88976ee7b3a0 /]#
+curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+
