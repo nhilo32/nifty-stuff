@@ -42,6 +42,17 @@ unzip sonarqube-x.y.z.zip -d /opt
 ```
 
 ### 6. Configure SonarQube
+Install psql to connect to the database
+```bash
+sudo yum install -y https://download.postgresql.org/pub/repos/yum/repo-files/pgdg-redhat-repo-latest.noarch.rpm
+```
+```bash
+sudo yum install -y postgresql12
+```
+```bash
+psql --version
+```
+
 Edit the configuration file:
 ```bash
 sudo nano /opt/sonarqube-x.y.z/conf/sonar.properties
