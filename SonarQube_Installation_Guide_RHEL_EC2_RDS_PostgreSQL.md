@@ -29,8 +29,9 @@ java -version
 
 ### 4. Download SonarQube
 Download the latest Community Edition from the SonarQube Downloads page:
+https://binaries.sonarsource.com/?prefix=Distribution/sonarqube/
 ```bash
-wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-x.y.z.zip
+wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-10.0.0.68432.zip
 ```
 (Note: Replace `x.y.z` with the actual version number)
 
