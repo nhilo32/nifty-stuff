@@ -11,3 +11,21 @@ docker pull registry1.dso.mil/ironbank/redhat/ubi/ubi9:9.3
 
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 
+# Use UBI 9 as the base image
+FROM registry1.dso.mil/ironbank/redhat/ubi/ubi9
+
+# Set maintainer label: replace with your name and email
+LABEL maintainer="ndaikawa@credenc-llc.com"
+
+# Install updates and essential packages
+RUN yum update -y && \
+    yum install -y \
+    sudo \
+    shadow-utils \
+    vim \
+    tar \
+    gzip \
+    && yum clean all
+
+# Command to run your application
+CMD ["bash"]
