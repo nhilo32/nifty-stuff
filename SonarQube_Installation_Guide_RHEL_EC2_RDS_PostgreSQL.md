@@ -55,7 +55,7 @@ psql --version
 
 Edit the configuration file:
 ```bash
-sudo nano /opt/sonarqube-x.y.z/conf/sonar.properties
+sudo vi /opt/sonarqube-x.y.z/conf/sonar.properties
 ```
 Configure the database settings to point to your RDS PostgreSQL instance:
 ```
