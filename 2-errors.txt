@@ -1,3 +1,6 @@
-error: LinkageError occurred while loading main class org.sonar.application.App
-        java.lang.UnsupportedClassVersionError: org/sonar/application/App has been compiled by a more recent version of the Java Runtime (class file version 61.0), this version of the Java Runtime only recognizes class file versions up to 55.0
-../../logs/nohup.log (END)
+Log in to the AWS Management Console.
+Navigate to the CloudTrail service.
+Go to the Event history.
+Filter events by the time range around when the EC2 instance was created.
+Look for the RunInstances event. This event is logged when an EC2 instance is created.
+Check the userIdentity element in the event. This part of the log will contain the information about the user who made the API call, such as their IAM user or role name.
