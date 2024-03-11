@@ -1,14 +1,9 @@
-sh-4.4$ sudo yum install java-17-openjdk-devel
-Updating Subscription Management repositories.
-Unable to read consumer identity
-
-This system is not registered with an entitlement server. You can use subscription-manager to register.
-
-PostgreSQL common RPMs for RHEL / Rocky / AlmaLinux 8 - x86_64                                                                          0.0  B/s |   0  B     03:00
-PostgreSQL common RPMs for RHEL / Rocky / AlmaLinux 8 - x86_64                                                                          2.4 MB/s | 2.4 kB     00:00
-PostgreSQL common RPMs for RHEL / Rocky / AlmaLinux 8 - x86_64                                                                          0.0  B/s |   0  B     03:00
-Errors during downloading metadata for repository 'pgdg-common':
-  - Curl error (28): Timeout was reached for https://download.postgresql.org/pub/repos/yum/common/redhat/rhel-8-x86_64/repodata/repomd.xml.asc [Connection timed out after 30000 milliseconds]
-  - Curl error (28): Timeout was reached for https://download.postgresql.org/pub/repos/yum/common/redhat/rhel-8-x86_64/repodata/repomd.xml [Connection timed out after 30000 milliseconds]
-Error: Failed to download metadata for repo 'pgdg-common': GPG verification is enabled, but GPG signature is not available. This may be an error or the repository doesnot support GPG verification: Curl error (28): Timeout was reached for https://download.postgresql.org/pub/repos/yum/common/redhat/rhel-8-x86_64/repodata/repomd.xml.asc [Connection timed out after 30000 milliseconds]
-sh-4.4$
+[ec2-user@sonarqube linux-x86-64]$ cat ../../logs/sonar.log
+2024.03.11 18:36:32 INFO  app[][o.s.a.AppFileSystem] Cleaning or creating temp directory /opt/sonarqube-10.0.0.68432/temp
+2024.03.11 18:36:32 INFO  app[][o.s.a.es.EsSettings] Elasticsearch listening on [HTTP: 127.0.0.1:9001, TCP: 127.0.0.1:33041]
+2024.03.11 18:36:32 INFO  app[][o.s.a.ProcessLauncherImpl] Launch process[ELASTICSEARCH] from [/opt/sonarqube-10.0.0.68432/elasticsearch]: /usr/lib/jvm/java-17-openjdk-17.0.10.0.7-2.el8.x86_64/bin/java -Xms4m -Xmx64m -XX:+UseSerialGC -Dcli.name=server -Dcli.script=./bin/elasticsearch -Dcli.libs=lib/tools/server-cli -Des.path.home=/opt/sonarqube-10.0.0.68432/elasticsearch -Des.path.conf=/opt/sonarqube-10.0.0.68432/temp/conf/es -Des.distribution.type=tar -cp /opt/sonarqube-10.0.0.68432/elasticsearch/lib/*:/opt/sonarqube-10.0.0.68432/elasticsearch/lib/cli-launcher/* org.elasticsearch.launcher.CliToolLauncher
+2024.03.11 18:36:32 INFO  app[][o.s.a.SchedulerImpl] Waiting for Elasticsearch to be up and running
+2024.03.11 18:36:40 WARN  app[][o.s.a.p.AbstractManagedProcess] Process exited with exit value [ElasticSearch]: 1
+2024.03.11 18:36:40 INFO  app[][o.s.a.SchedulerImpl] Process[ElasticSearch] is stopped
+2024.03.11 18:36:40 INFO  app[][o.s.a.SchedulerImpl] SonarQube is stopped
+[ec2-user@sonarqube linux-x86-64]$ 
