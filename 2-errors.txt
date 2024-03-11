@@ -4,5 +4,11 @@ Unable to read consumer identity
 
 This system is not registered with an entitlement server. You can use subscription-manager to register.
 
-PostgreSQL common RPMs for RHEL / Rocky / AlmaLinux 8 - x86_64       [                                       ===                      ] ---  B/s |   0  B     --:-- ETA
-
+PostgreSQL common RPMs for RHEL / Rocky / AlmaLinux 8 - x86_64                                                                          0.0  B/s |   0  B     03:00
+PostgreSQL common RPMs for RHEL / Rocky / AlmaLinux 8 - x86_64                                                                          2.4 MB/s | 2.4 kB     00:00
+PostgreSQL common RPMs for RHEL / Rocky / AlmaLinux 8 - x86_64                                                                          0.0  B/s |   0  B     03:00
+Errors during downloading metadata for repository 'pgdg-common':
+  - Curl error (28): Timeout was reached for https://download.postgresql.org/pub/repos/yum/common/redhat/rhel-8-x86_64/repodata/repomd.xml.asc [Connection timed out after 30000 milliseconds]
+  - Curl error (28): Timeout was reached for https://download.postgresql.org/pub/repos/yum/common/redhat/rhel-8-x86_64/repodata/repomd.xml [Connection timed out after 30000 milliseconds]
+Error: Failed to download metadata for repo 'pgdg-common': GPG verification is enabled, but GPG signature is not available. This may be an error or the repository doesnot support GPG verification: Curl error (28): Timeout was reached for https://download.postgresql.org/pub/repos/yum/common/redhat/rhel-8-x86_64/repodata/repomd.xml.asc [Connection timed out after 30000 milliseconds]
+sh-4.4$
