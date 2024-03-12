@@ -12,32 +12,35 @@
 
 # Installation Procedure
 
-1. Download the LTS version from [SonarSource](https://www.sonarsource.com/). Ensure you download the version corresponding to your license (Enterprise in this case).
-2. Unzip and place onto `/opt/sonarqube/`.
+1. Download the LTS version from [SonarSource](https://www.sonarsource.com/). Ensure you download the version corresponding to your license (Enterprise in this case). eg.
+   ```
+   sudo wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-10.4.1.88267.zip
+   ```
+3. Unzip and place onto `/opt/sonarqube/`.
     ```
     [root@dsopsonar sonarqube]# pwd
     /opt/sonarqube
     [root@dsopsonar sonarqube]# ls
     bin  conf  COPYING  data  dependency-license.json  elasticsearch  extensions  lib  logs  temp  web
     ```
-3. Install Java OpenJDK 17.
+4. Install Java OpenJDK 17.
     ```
     yum install java-17-openjdk.x86_64
     ```
-4. Edit `/etc/sysctl.conf` to add additional parameters:
+5. Edit `/etc/sysctl.conf` to add additional parameters:
     ```
     ## Additional parameters
     vm.max_map_count=524288
     fs.file-max=131072
     ```
-5. Add the `sonar` user and set file limits.
+6. Add the `sonar` user and set file limits.
     ```
     useradd sonar
     vim /etc/security/limits.d/99-sonarqube.conf
     sonar   -   nofile   131072
     sonar   -   nproc    8192
     ```
-6. Configure File Access Policy.
+7. Configure File Access Policy.
     ```
     vim /etc/fapolicyd/rules.d/5-sonar.rules
     ## UID of sonar user
@@ -45,7 +48,7 @@
     allow perm=any uid=1006 trust=1 : all
     sysctl -p ; systemctl restart fapolicyd
     ```
-7. Edit `/opt/sonarqube/conf/sonar.properties` for database configuration.
+8. Edit `/opt/sonarqube/conf/sonar.properties` for database configuration.
     ```
     sonar.jdbc.username=postgres
     sonar.jdbc.password=CHANGE_ME
@@ -55,7 +58,7 @@
     ```
    Ensure `/var/sonarqube` has sufficient space (50G to 100G recommended), preferably using LVM.
 
-8. Create a systemd service file for SonarQube.
+9. Create a systemd service file for SonarQube.
     ```
     vim /etc/systemd/system/sonar.service
     [Unit]
@@ -75,12 +78,12 @@
     [Install]
     WantedBy=multi-user.target
     ```
-9. Set ownership and start SonarQube service.
+10. Set ownership and start SonarQube service.
     ```
     chown -R sonar:sonar /opt/sonarqube/ ; restorecon -vR /opt/sonarqube/
     systemctl enable sonar.service ; systemctl start sonar.service
     ```
    Check `/opt/sonarqube/logs` to review the startup process.
 
-10. Set up an Application Load Balancer (ALB) for SSL termination.
+11. Set up an Application Load Balancer (ALB) for SSL termination.
 
