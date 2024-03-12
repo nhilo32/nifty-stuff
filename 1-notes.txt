@@ -31,3 +31,5 @@ CMD ["bash"]
 ps aux | grep elasticsearch
 curl -X GET "localhost:[PORT]"
 sudo netstat -tulnp | grep [PORT]
+
+aws ecr get-login-password --region us-gov-west-1 | docker login --username AWS --password-stdin 040406873296.dkr.ecr.us-gov-west-1.amazonaws.com
