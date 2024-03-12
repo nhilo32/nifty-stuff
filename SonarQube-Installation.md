@@ -14,7 +14,7 @@
 
 1. Download the LTS version from [SonarSource](https://www.sonarsource.com/). Ensure you download the version corresponding to your license (Enterprise in this case). eg.
    ```
-   sudo wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-10.4.1.88267.zip
+   wget https://binaries.sonarsource.com/Distribution/sonarqube/sonarqube-10.4.1.88267.zip
    ```
 3. Unzip and place onto `/opt/sonarqube/`.
     ```
