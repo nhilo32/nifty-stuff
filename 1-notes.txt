@@ -27,3 +27,7 @@ RUN yum update -y && \
 
 # Command to run your application
 CMD ["bash"]
+
+ps aux | grep elasticsearch
+curl -X GET "localhost:[PORT]"
+sudo netstat -tulnp | grep [PORT]
