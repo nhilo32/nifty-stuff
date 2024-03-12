@@ -1,0 +1,13 @@
+[ec2-user@sonarqube linux-x86-64]$ ps aux | grep elasticsearch
+ec2-user  355997  0.0  0.0  12144  1148 pts/0    S+   15:57   0:00 grep --color=auto elasticsearch
+[ec2-user@sonarqube linux-x86-64]$ curl -X GET "localhost:9000"
+curl: (7) Failed to connect to localhost port 9000: Connection refused
+[ec2-user@sonarqube linux-x86-64]$ curl -X GET "localhost:9001"
+curl: (7) Failed to connect to localhost port 9001: Connection refused
+[ec2-user@sonarqube linux-x86-64]$ sudo netstat -tulnp | grep 900
+[sudo] password for ec2-user:
+[ec2-user@sonarqube linux-x86-64]$ sudo netstat -tulnp | grep 9000
+[sudo] password for ec2-user:
+[ec2-user@sonarqube linux-x86-64]$ sudo netstat -tulnp | grep 9001
+[sudo] password for ec2-user:
+[ec2-user@sonarqube linux-x86-64]$
