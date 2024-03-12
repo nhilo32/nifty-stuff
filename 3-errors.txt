@@ -1,4 +1,4 @@
-[ec2-user@ip-10-22-4-214 ~]$ aws ecr get-login-password --region us-gov-west-1
+[hilo@ip-10-22-4-214 .aws]$ aws ecr get-login-password --region us-gov-west-1 --profile VDMS
 
-An error occurred (AccessDeniedException) when calling the GetAuthorizationToken operation: User: arn:aws-us-gov:sts::179381774813:assumed-role/ManagedInstanceProfile/i-07051b8a9bb13c416 is not authorized to perform: ecr:GetAuthorizationToken on resource: * because no identity-based policy allows the ecr:GetAuthorizationToken action
-[ec2-user@ip-10-22-4-214 ~]$
+Partial credentials found in assume-role, missing: source_profile or credential_source
+[hilo@ip-10-22-4-214 .aws]$
