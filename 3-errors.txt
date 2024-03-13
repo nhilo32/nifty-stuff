@@ -1,5 +1,28 @@
-ec2-user@sonarqube logs]$ cat es.log
-2024.03.13 15:35:57 ERROR es[][o.e.b.Elasticsearch] fatal exception while booting Elasticsearch
+[sonar@sonarqube logs]$ cat sonar.log
+2024.03.13 15:52:24 INFO  app[][o.s.a.AppFileSystem] Cleaning or creating temp directory /var/sonarqube/temp
+2024.03.13 15:52:24 INFO  app[][o.s.a.es.EsSettings] Elasticsearch listening on [HTTP: 127.0.0.1:9001, TCP: 127.0.0.1:40797]
+2024.03.13 15:52:24 INFO  app[][o.s.a.ProcessLauncherImpl] Launch process[ELASTICSEARCH] from [/opt/sonarqube/elasticsearch]: /usr/lib/jvm/java-17-openjdk-17.0.10.0.7-2.el8.x86_64/bin/java -Xms4m -Xmx64m -XX:+UseSerialGC -Dcli.name=server -Dcli.script=./bin/elasticsearch -Dcli.libs=lib/tools/server-cli -Des.path.home=/opt/sonarqube/elasticsearch -Des.path.conf=/var/sonarqube/temp/conf/es -Des.distribution.type=tar -cp /opt/sonarqube/elasticsearch/lib/*:/opt/sonarqube/elasticsearch/lib/cli-launcher/* org.elasticsearch.launcher.CliToolLauncher
+2024.03.13 15:52:24 INFO  app[][o.s.a.SchedulerImpl] Waiting for Elasticsearch to be up and running
+2024.03.13 15:52:30 WARN  app[][o.s.a.p.AbstractManagedProcess] Process exited with exit value [ElasticSearch]: 1
+2024.03.13 15:52:30 INFO  app[][o.s.a.SchedulerImpl] Process[ElasticSearch] is stopped
+2024.03.13 15:52:30 INFO  app[][o.s.a.SchedulerImpl] SonarQube is stopped
+[sonar@sonarqube logs]$
+[sonar@sonarqube logs]$
+[sonar@sonarqube logs]$ cat nohup.log
+2024.03.13 15:52:24 INFO  app[][o.s.a.AppFileSystem] Cleaning or creating temp directory /var/sonarqube/temp
+2024.03.13 15:52:24 INFO  app[][o.s.a.es.EsSettings] Elasticsearch listening on [HTTP: 127.0.0.1:9001, TCP: 127.0.0.1:40797]
+2024.03.13 15:52:24 INFO  app[][o.s.a.ProcessLauncherImpl] Launch process[ELASTICSEARCH] from [/opt/sonarqube/elasticsearch]: /usr/lib/jvm/java-17-openjdk-17.0.10.0.7-2.el8.x86_64/bin/java -Xms4m -Xmx64m -XX:+UseSerialGC -Dcli.name=server -Dcli.script=./bin/elasticsearch -Dcli.libs=lib/tools/server-cli -Des.path.home=/opt/sonarqube/elasticsearch -Des.path.conf=/var/sonarqube/temp/conf/es -Des.distribution.type=tar -cp /opt/sonarqube/elasticsearch/lib/*:/opt/sonarqube/elasticsearch/lib/cli-launcher/* org.elasticsearch.launcher.CliToolLauncher
+2024.03.13 15:52:24 INFO  app[][o.s.a.SchedulerImpl] Waiting for Elasticsearch to be up and running
+ERROR: Elasticsearch did not exit normally - check the logs at /opt/sonarqube/logs/sonarqube.log
+
+ERROR: Elasticsearch exited unexpectedly, with exit code 1
+2024.03.13 15:52:30 WARN  app[][o.s.a.p.AbstractManagedProcess] Process exited with exit value [ElasticSearch]: 1
+2024.03.13 15:52:30 INFO  app[][o.s.a.SchedulerImpl] Process[ElasticSearch] is stopped
+2024.03.13 15:52:30 INFO  app[][o.s.a.SchedulerImpl] SonarQube is stopped
+[sonar@sonarqube logs]$
+[sonar@sonarqube logs]$
+[sonar@sonarqube logs]$ cat es.log
+2024.03.13 15:52:29 ERROR es[][o.e.b.Elasticsearch] fatal exception while booting Elasticsearch
 java.lang.ExceptionInInitializerError: null
         at org.elasticsearch.bootstrap.JNANatives.definitelyRunningAsRoot(JNANatives.java:162) ~[elasticsearch-8.11.0.jar:?]
         at org.elasticsearch.bootstrap.Natives.definitelyRunningAsRoot(Natives.java:57) ~[elasticsearch-8.11.0.jar:?]
@@ -13,4 +36,4 @@ Caused by: java.lang.UnsupportedOperationException: Failed to allocate closure
         at com.sun.jna.Native.register(Native.java:1493) ~[jna-5.10.0.jar:?]
         at org.elasticsearch.bootstrap.JNACLibrary.<clinit>(JNACLibrary.java:38) ~[elasticsearch-8.11.0.jar:?]
         ... 5 more
-[ec2-user@sonarqube logs]$
+[sonar@sonarqube logs]$
