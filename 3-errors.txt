@@ -1,4 +1,16 @@
-[hilo@ip-10-22-4-214 .aws]$ aws ecr get-login-password --region us-gov-west-1 --profile VDMS
-
-Partial credentials found in assume-role, missing: source_profile or credential_source
-[hilo@ip-10-22-4-214 .aws]$
+ec2-user@sonarqube logs]$ cat es.log
+2024.03.13 15:35:57 ERROR es[][o.e.b.Elasticsearch] fatal exception while booting Elasticsearch
+java.lang.ExceptionInInitializerError: null
+        at org.elasticsearch.bootstrap.JNANatives.definitelyRunningAsRoot(JNANatives.java:162) ~[elasticsearch-8.11.0.jar:?]
+        at org.elasticsearch.bootstrap.Natives.definitelyRunningAsRoot(Natives.java:57) ~[elasticsearch-8.11.0.jar:?]
+        at org.elasticsearch.bootstrap.Elasticsearch.initializeNatives(Elasticsearch.java:281) ~[elasticsearch-8.11.0.jar:?]
+        at org.elasticsearch.bootstrap.Elasticsearch.initPhase2(Elasticsearch.java:167) ~[elasticsearch-8.11.0.jar:?]
+        at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:72) ~[elasticsearch-8.11.0.jar:?]
+Caused by: java.lang.UnsupportedOperationException: Failed to allocate closure
+        at com.sun.jna.Native.registerMethod(Native Method) ~[jna-5.10.0.jar:?]
+        at com.sun.jna.Native.register(Native.java:1906) ~[jna-5.10.0.jar:?]
+        at com.sun.jna.Native.register(Native.java:1775) ~[jna-5.10.0.jar:?]
+        at com.sun.jna.Native.register(Native.java:1493) ~[jna-5.10.0.jar:?]
+        at org.elasticsearch.bootstrap.JNACLibrary.<clinit>(JNACLibrary.java:38) ~[elasticsearch-8.11.0.jar:?]
+        ... 5 more
+[ec2-user@sonarqube logs]$
