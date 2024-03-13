@@ -27,10 +27,12 @@
     ```
     yum install java-17-openjdk.x86_64
     ```
-5. Edit `/etc/sysctl.conf` to add additional parameters:
+5. Edit `/etc/sysctl.conf` to add the following additional parameters to the end of the file:
     ```
-    ## Additional parameters
+    # Increase the maximum number of memory map areas per process (needed for Elasticsearch)
     vm.max_map_count=524288
+
+    # Increase the system-wide limit for the number of open file handles
     fs.file-max=131072
     ```
 6. Add the `sonar` user and set file limits.
