@@ -1,3 +1,8 @@
+
+[sonar@sonarqube polkit-1]$ ls /usr/share/polkit-1/actions/*pc*
+/usr/share/polkit-1/actions/org.debian.pcsc-lite.policy
+[sonar@sonarqube polkit-1]$
+
 Mar 13 21:31:01 sonarqube systemd[1]: session-2178.scope: Succeeded.
 Mar 13 21:32:43 sonarqube systemd[1]: Started PC/SC Smart Card Daemon.
 Mar 13 21:32:44 sonarqube pcscd[428831]: 00000000 auth.c:139:IsClientAuthorized() Process 428804 (user: 1007) is NOT authorized for action: access_pcsc
