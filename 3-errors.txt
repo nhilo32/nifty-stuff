@@ -1,119 +1,45 @@
-polkit.addRule(function(action, subject) {
-    if (action.id == "org.debian.pcsc-lite.access_pcsc" && subject.uid == 1007) {
-        return polkit.Result.YES;
-    }
-});
-
-
-[sonar@sonarqube polkit-1]$ cat /usr/share/polkit-1/actions/org.debian.pcsc-lite.policy
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE policyconfig PUBLIC
- "-//freedesktop//DTD PolicyKit Policy Configuration 1.0//EN"
- "http://www.freedesktop.org/standards/PolicyKit/1.0/policyconfig.dtd">
-<policyconfig>
-  <vendor>The PCSC-lite Project</vendor>
-  <vendor_url>https://pcsclite.apdu.fr/</vendor_url>
-<!--  <icon_name>smart-card</icon_name> -->
-
-  <action id="org.debian.pcsc-lite.access_pcsc">
-    <description>Access to the PC/SC daemon</description>
-    <message>Authentication is required to access the PC/SC daemon</message>
-    <defaults>
-      <allow_any>no</allow_any>
-      <allow_inactive>no</allow_inactive>
-      <allow_active>yes</allow_active>
-    </defaults>
-  </action>
-
-  <action id="org.debian.pcsc-lite.access_card">
-    <description>Access to the smart card</description>
-    <message>Authentication is required to access the smart card</message>
-    <defaults>
-      <allow_any>no</allow_any>
-      <allow_inactive>no</allow_inactive>
-      <allow_active>yes</allow_active>
-    </defaults>
-  </action>
-
-</policyconfig>
-[sonar@sonarqube polkit-1]$
-
-[sonar@sonarqube polkit-1]$ ls /usr/share/polkit-1/actions/*pc*
-/usr/share/polkit-1/actions/org.debian.pcsc-lite.policy
-[sonar@sonarqube polkit-1]$
-
-Mar 13 21:31:01 sonarqube systemd[1]: session-2178.scope: Succeeded.
-Mar 13 21:32:43 sonarqube systemd[1]: Started PC/SC Smart Card Daemon.
-Mar 13 21:32:44 sonarqube pcscd[428831]: 00000000 auth.c:139:IsClientAuthorized() Process 428804 (user: 1007) is NOT authorized for action: access_pcsc
-Mar 13 21:32:44 sonarqube pcscd[428831]: 00000581 winscard_svc.c:335:ContextThread() Rejected unauthorized PC/SC client
-Mar 13 21:32:44 sonarqube pcscd[428831]: 00325404 auth.c:139:IsClientAuthorized() Process 428804 (user: 1007) is NOT authorized for action: access_pcsc
-
-
-
-[sonar@sonarqube linux-x86-64]$ ./sonar.sh start
-/usr/bin/java
-Starting SonarQube...
-Started SonarQube.
-[sonar@sonarqube linux-x86-64]$ ./sonar.sh status
-/usr/bin/java
-Removed stale pid file: ./SonarQube.pid
-SonarQube is not running.
-[sonar@sonarqube linux-x86-64]$
-[sonar@sonarqube linux-x86-64]$ cat ../../logs/sonar.log
-2024.03.13 21:22:26 INFO  app[][o.s.a.AppFileSystem] Cleaning or creating temp directory /var/sonarqube/temp
-2024.03.13 21:22:26 INFO  app[][o.s.a.es.EsSettings] Elasticsearch listening on [HTTP: 127.0.0.1:9001, TCP: 127.0.0.1:44769]
-2024.03.13 21:22:26 INFO  app[][o.s.a.ProcessLauncherImpl] Launch process[ELASTICSEARCH] from [/opt/sonarqube-10.4/elasticsearch]: /usr/lib/jvm/java-17-openjdk-17.0.10.0.7-2.el8.x86_64/bin/java -Xms4m -Xmx64m -XX:+UseSerialGC -Dcli.name=server -Dcli.script=./bin/elasticsearch -Dcli.libs=lib/tools/server-cli -Des.path.home=/opt/sonarqube-10.4/elasticsearch -Des.path.conf=/var/sonarqube/temp/conf/es -Des.distribution.type=tar -cp /opt/sonarqube-10.4/elasticsearch/lib/*:/opt/sonarqube-10.4/elasticsearch/lib/cli-launcher/* org.elasticsearch.launcher.CliToolLauncher
-2024.03.13 21:22:26 INFO  app[][o.s.a.SchedulerImpl] Waiting for Elasticsearch to be up and running
-2024.03.13 21:22:34 WARN  app[][o.s.a.p.AbstractManagedProcess] Process exited with exit value [ElasticSearch]: 1
-2024.03.13 21:22:34 INFO  app[][o.s.a.SchedulerImpl] Process[ElasticSearch] is stopped
-2024.03.13 21:22:34 INFO  app[][o.s.a.SchedulerImpl] SonarQube is stopped
-2024.03.13 21:24:17 INFO  app[][o.s.a.AppFileSystem] Cleaning or creating temp directory /var/sonarqube/temp
-2024.03.13 21:24:17 INFO  app[][o.s.a.es.EsSettings] Elasticsearch listening on [HTTP: 127.0.0.1:9001, TCP: 127.0.0.1:45901]
-2024.03.13 21:24:17 INFO  app[][o.s.a.ProcessLauncherImpl] Launch process[ELASTICSEARCH] from [/opt/sonarqube-10.4/elasticsearch]: /usr/lib/jvm/java-17-openjdk-17.0.10.0.7-2.el8.x86_64/bin/java -Xms4m -Xmx64m -XX:+UseSerialGC -Dcli.name=server -Dcli.script=./bin/elasticsearch -Dcli.libs=lib/tools/server-cli -Des.path.home=/opt/sonarqube-10.4/elasticsearch -Des.path.conf=/var/sonarqube/temp/conf/es -Des.distribution.type=tar -cp /opt/sonarqube-10.4/elasticsearch/lib/*:/opt/sonarqube-10.4/elasticsearch/lib/cli-launcher/* org.elasticsearch.launcher.CliToolLauncher
-2024.03.13 21:24:17 INFO  app[][o.s.a.SchedulerImpl] Waiting for Elasticsearch to be up and running
-2024.03.13 21:24:22 WARN  app[][o.s.a.p.AbstractManagedProcess] Process exited with exit value [ElasticSearch]: 1
-2024.03.13 21:24:22 INFO  app[][o.s.a.SchedulerImpl] Process[ElasticSearch] is stopped
-2024.03.13 21:24:22 INFO  app[][o.s.a.SchedulerImpl] SonarQube is stopped
-[sonar@sonarqube linux-x86-64]$
-[sonar@sonarqube linux-x86-64]$ cat ../../logs/nohup.log
-2024.03.13 21:24:17 INFO  app[][o.s.a.AppFileSystem] Cleaning or creating temp directory /var/sonarqube/temp
-2024.03.13 21:24:17 INFO  app[][o.s.a.es.EsSettings] Elasticsearch listening on [HTTP: 127.0.0.1:9001, TCP: 127.0.0.1:45901]
-2024.03.13 21:24:17 INFO  app[][o.s.a.ProcessLauncherImpl] Launch process[ELASTICSEARCH] from [/opt/sonarqube-10.4/elasticsearch]: /usr/lib/jvm/java-17-openjdk-17.0.10.0.7-2.el8.x86_64/bin/java -Xms4m -Xmx64m -XX:+UseSerialGC -Dcli.name=server -Dcli.script=./bin/elasticsearch -Dcli.libs=lib/tools/server-cli -Des.path.home=/opt/sonarqube-10.4/elasticsearch -Des.path.conf=/var/sonarqube/temp/conf/es -Des.distribution.type=tar -cp /opt/sonarqube-10.4/elasticsearch/lib/*:/opt/sonarqube-10.4/elasticsearch/lib/cli-launcher/* org.elasticsearch.launcher.CliToolLauncher
-2024.03.13 21:24:17 INFO  app[][o.s.a.SchedulerImpl] Waiting for Elasticsearch to be up and running
-ERROR: Elasticsearch did not exit normally - check the logs at /opt/sonarqube-10.4/logs/sonarqube.log
-
-ERROR: Elasticsearch exited unexpectedly, with exit code 1
-2024.03.13 21:24:22 WARN  app[][o.s.a.p.AbstractManagedProcess] Process exited with exit value [ElasticSearch]: 1
-2024.03.13 21:24:22 INFO  app[][o.s.a.SchedulerImpl] Process[ElasticSearch] is stopped
-2024.03.13 21:24:22 INFO  app[][o.s.a.SchedulerImpl] SonarQube is stopped
-[sonar@sonarqube linux-x86-64]$
-[sonar@sonarqube linux-x86-64]$ cat ../../logs/es.log
-2024.03.13 21:22:34 ERROR es[][o.e.b.Elasticsearch] fatal exception while booting Elasticsearch
-java.lang.ExceptionInInitializerError: null
-        at org.elasticsearch.bootstrap.JNANatives.definitelyRunningAsRoot(JNANatives.java:162) ~[elasticsearch-8.11.0.jar:?]
-        at org.elasticsearch.bootstrap.Natives.definitelyRunningAsRoot(Natives.java:57) ~[elasticsearch-8.11.0.jar:?]
-        at org.elasticsearch.bootstrap.Elasticsearch.initializeNatives(Elasticsearch.java:281) ~[elasticsearch-8.11.0.jar:?]
-        at org.elasticsearch.bootstrap.Elasticsearch.initPhase2(Elasticsearch.java:167) ~[elasticsearch-8.11.0.jar:?]
-        at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:72) ~[elasticsearch-8.11.0.jar:?]
-Caused by: java.lang.UnsupportedOperationException: Failed to allocate closure
-        at com.sun.jna.Native.registerMethod(Native Method) ~[jna-5.10.0.jar:?]
-        at com.sun.jna.Native.register(Native.java:1906) ~[jna-5.10.0.jar:?]
-        at com.sun.jna.Native.register(Native.java:1775) ~[jna-5.10.0.jar:?]
-        at com.sun.jna.Native.register(Native.java:1493) ~[jna-5.10.0.jar:?]
-        at org.elasticsearch.bootstrap.JNACLibrary.<clinit>(JNACLibrary.java:38) ~[elasticsearch-8.11.0.jar:?]
-        ... 5 more
-2024.03.13 21:24:22 ERROR es[][o.e.b.Elasticsearch] fatal exception while booting Elasticsearch
-java.lang.ExceptionInInitializerError: null
-        at org.elasticsearch.bootstrap.JNANatives.definitelyRunningAsRoot(JNANatives.java:162) ~[elasticsearch-8.11.0.jar:?]
-        at org.elasticsearch.bootstrap.Natives.definitelyRunningAsRoot(Natives.java:57) ~[elasticsearch-8.11.0.jar:?]
-        at org.elasticsearch.bootstrap.Elasticsearch.initializeNatives(Elasticsearch.java:281) ~[elasticsearch-8.11.0.jar:?]
-        at org.elasticsearch.bootstrap.Elasticsearch.initPhase2(Elasticsearch.java:167) ~[elasticsearch-8.11.0.jar:?]
-        at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:72) ~[elasticsearch-8.11.0.jar:?]
-Caused by: java.lang.UnsupportedOperationException: Failed to allocate closure
-        at com.sun.jna.Native.registerMethod(Native Method) ~[jna-5.10.0.jar:?]
-        at com.sun.jna.Native.register(Native.java:1906) ~[jna-5.10.0.jar:?]
-        at com.sun.jna.Native.register(Native.java:1775) ~[jna-5.10.0.jar:?]
-        at com.sun.jna.Native.register(Native.java:1493) ~[jna-5.10.0.jar:?]
-        at org.elasticsearch.bootstrap.JNACLibrary.<clinit>(JNACLibrary.java:38) ~[elasticsearch-8.11.0.jar:?]
-        ... 5 more
+Mar 14 03:00:02 sonarqube systemd[1]: session-2244.scope: Succeeded.
+Mar 14 03:00:02 sonarqube systemd[1]: session-2245.scope: Succeeded.
+Mar 14 03:00:02 sonarqube systemd[1]: session-2246.scope: Succeeded.
+Mar 14 03:00:03 sonarqube systemd[1]: postfix.service: Control process exited, code=exited status=1
+Mar 14 03:00:03 sonarqube systemd[1]: postfix.service: Failed with result 'exit-code'.
+Mar 14 03:00:03 sonarqube systemd[1]: Failed to start Postfix Mail Transport Agent.
+Mar 14 03:00:03 sonarqube crond[442797]: sendmail: fatal: parameter inet_interfaces: no local interface found for 10.22.3.19
+Mar 14 03:00:03 sonarqube systemd[1]: session-2247.scope: Succeeded.
+Mar 14 03:10:00 sonarqube systemd[1]: Starting system activity accounting tool...
+Mar 14 03:10:00 sonarqube systemd[1]: sysstat-collect.service: Succeeded.
+Mar 14 03:10:00 sonarqube systemd[1]: Started system activity accounting tool.
+Mar 14 03:13:00 sonarqube amazon-ssm-agent[1797]: 2024-03-14 03:13:00 INFO EC2RoleProvider Successfully connected with instance profile role credentials
+Mar 14 03:13:00 sonarqube amazon-ssm-agent[1797]: 2024-03-14 03:13:00 INFO [CredentialRefresher] Credentials ready
+Mar 14 03:13:00 sonarqube amazon-ssm-agent[1797]: 2024-03-14 03:13:00 INFO [CredentialRefresher] Next credential rotation will be in 29.999969728483332 minutes
+Mar 14 03:15:02 sonarqube systemd[1]: Started Session 2249 of user root.
+Mar 14 03:15:02 sonarqube systemd[1]: session-2249.scope: Succeeded.
+Mar 14 03:15:06 sonarqube su[443524]: (to root) sonar on pts/0
+Mar 14 03:16:40 sonarqube systemd[1]: Stopping Authorization Manager...
+Mar 14 03:16:40 sonarqube systemd[1]: polkit.service: Succeeded.
+Mar 14 03:16:40 sonarqube systemd[1]: Stopped Authorization Manager.
+Mar 14 03:16:40 sonarqube systemd[1]: Starting Authorization Manager...
+Mar 14 03:16:40 sonarqube polkitd[443569]: Started polkitd version 0.115
+Mar 14 03:16:40 sonarqube systemd[1]: Started Authorization Manager.
+Mar 14 03:17:16 sonarqube systemd[1]: Started PC/SC Smart Card Daemon.
+Mar 14 03:17:17 sonarqube pcscd[443714]: 00000000 auth.c:139:IsClientAuthorized() Process 443686 (user: 1007) is NOT authorized for action: access_pcsc
+Mar 14 03:17:17 sonarqube pcscd[443714]: 00000138 winscard_svc.c:335:ContextThread() Rejected unauthorized PC/SC client
+Mar 14 03:17:17 sonarqube pcscd[443714]: 00254383 auth.c:139:IsClientAuthorized() Process 443686 (user: 1007) is NOT authorized for action: access_pcsc
+Mar 14 03:17:17 sonarqube pcscd[443714]: 00000139 winscard_svc.c:335:ContextThread() Rejected unauthorized PC/SC client
+Mar 14 03:17:17 sonarqube pcscd[443714]: 00237399 auth.c:139:IsClientAuthorized() Process 443686 (user: 1007) is NOT authorized for action: access_pcsc
+Mar 14 03:17:17 sonarqube pcscd[443714]: 00000112 winscard_svc.c:335:ContextThread() Rejected unauthorized PC/SC client
+Mar 14 03:17:17 sonarqube pcscd[443714]: 00236498 auth.c:139:IsClientAuthorized() Process 443686 (user: 1007) is NOT authorized for action: access_pcsc
+Mar 14 03:17:17 sonarqube pcscd[443714]: 00000156 winscard_svc.c:335:ContextThread() Rejected unauthorized PC/SC client
+Mar 14 03:17:19 sonarqube pcscd[443714]: 01879086 auth.c:139:IsClientAuthorized() Process 443735 (user: 1007) is NOT authorized for action: access_pcsc
+Mar 14 03:17:19 sonarqube pcscd[443714]: 00000266 winscard_svc.c:335:ContextThread() Rejected unauthorized PC/SC client
+Mar 14 03:17:19 sonarqube pcscd[443714]: 00227554 auth.c:139:IsClientAuthorized() Process 443735 (user: 1007) is NOT authorized for action: access_pcsc
+Mar 14 03:17:19 sonarqube pcscd[443714]: 00000122 winscard_svc.c:335:ContextThread() Rejected unauthorized PC/SC client
+Mar 14 03:17:20 sonarqube pcscd[443714]: 00267250 auth.c:139:IsClientAuthorized() Process 443735 (user: 1007) is NOT authorized for action: access_pcsc
+Mar 14 03:17:20 sonarqube pcscd[443714]: 00000151 winscard_svc.c:335:ContextThread() Rejected unauthorized PC/SC client
+Mar 14 03:17:20 sonarqube pcscd[443714]: 00264390 auth.c:139:IsClientAuthorized() Process 443735 (user: 1007) is NOT authorized for action: access_pcsc
+Mar 14 03:17:20 sonarqube pcscd[443714]: 00000138 winscard_svc.c:335:ContextThread() Rejected unauthorized PC/SC client
+Mar 14 03:18:21 sonarqube systemd[1]: pcscd.service: Succeeded.
+Mar 14 03:20:00 sonarqube systemd[1]: Starting system activity accounting tool...
+Mar 14 03:20:00 sonarqube systemd[1]: sysstat-collect.service: Succeeded.
+Mar 14 03:20:00 sonarqube systemd[1]: Started system activity accounting tool.
 [sonar@sonarqube linux-x86-64]$
