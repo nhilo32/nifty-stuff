@@ -1,3 +1,5 @@
+fips-mode-setup --disable ; reboot / fips-mode-setup --enable ; reboot     > test it on and off
+
 Mar 14 03:00:02 sonarqube systemd[1]: session-2244.scope: Succeeded.
 Mar 14 03:00:02 sonarqube systemd[1]: session-2245.scope: Succeeded.
 Mar 14 03:00:02 sonarqube systemd[1]: session-2246.scope: Succeeded.
