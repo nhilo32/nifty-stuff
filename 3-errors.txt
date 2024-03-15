@@ -1,3 +1,6 @@
+aws ecr get-login-password --region us-gov-west-1 | docker login --username AWS --password-stdin 179381774813.dkr.ecr.us-gov-west-1.amazonaws.com
+
+
 [ec2-user@gitlabsonar bin]$ aws ecr get-login-password --region us-gov-west-1 | docker login --username AWS --password-stdin 040406873296.dkr.ecr.us-gov-west-1.amazonaws.com
 WARNING! Your password will be stored unencrypted in /home/ec2-user/.docker/config.json.
 Configure a credential helper to remove this warning. See
