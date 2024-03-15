@@ -1,49 +1,12 @@
-Instance summary for i-016804c021be3ef31 (Credence_Sonar_Qube) 
+[ec2-user@gitlabsonar bin]$ aws ecr get-login-password --region us-gov-west-1 | docker login --username AWS --password-stdin 040406873296.dkr.ecr.us-gov-west-1.amazonaws.com
+WARNING! Your password will be stored unencrypted in /home/ec2-user/.docker/config.json.
+Configure a credential helper to remove this warning. See
+https://docs.docker.com/engine/reference/commandline/login/#credentials-store
 
-fips-mode-setup --disable ; reboot / fips-mode-setup --enable ; reboot     > test it on and off
-
-Mar 14 03:00:02 sonarqube systemd[1]: session-2244.scope: Succeeded.
-Mar 14 03:00:02 sonarqube systemd[1]: session-2245.scope: Succeeded.
-Mar 14 03:00:02 sonarqube systemd[1]: session-2246.scope: Succeeded.
-Mar 14 03:00:03 sonarqube systemd[1]: postfix.service: Control process exited, code=exited status=1
-Mar 14 03:00:03 sonarqube systemd[1]: postfix.service: Failed with result 'exit-code'.
-Mar 14 03:00:03 sonarqube systemd[1]: Failed to start Postfix Mail Transport Agent.
-Mar 14 03:00:03 sonarqube crond[442797]: sendmail: fatal: parameter inet_interfaces: no local interface found for 10.22.3.19
-Mar 14 03:00:03 sonarqube systemd[1]: session-2247.scope: Succeeded.
-Mar 14 03:10:00 sonarqube systemd[1]: Starting system activity accounting tool...
-Mar 14 03:10:00 sonarqube systemd[1]: sysstat-collect.service: Succeeded.
-Mar 14 03:10:00 sonarqube systemd[1]: Started system activity accounting tool.
-Mar 14 03:13:00 sonarqube amazon-ssm-agent[1797]: 2024-03-14 03:13:00 INFO EC2RoleProvider Successfully connected with instance profile role credentials
-Mar 14 03:13:00 sonarqube amazon-ssm-agent[1797]: 2024-03-14 03:13:00 INFO [CredentialRefresher] Credentials ready
-Mar 14 03:13:00 sonarqube amazon-ssm-agent[1797]: 2024-03-14 03:13:00 INFO [CredentialRefresher] Next credential rotation will be in 29.999969728483332 minutes
-Mar 14 03:15:02 sonarqube systemd[1]: Started Session 2249 of user root.
-Mar 14 03:15:02 sonarqube systemd[1]: session-2249.scope: Succeeded.
-Mar 14 03:15:06 sonarqube su[443524]: (to root) sonar on pts/0
-Mar 14 03:16:40 sonarqube systemd[1]: Stopping Authorization Manager...
-Mar 14 03:16:40 sonarqube systemd[1]: polkit.service: Succeeded.
-Mar 14 03:16:40 sonarqube systemd[1]: Stopped Authorization Manager.
-Mar 14 03:16:40 sonarqube systemd[1]: Starting Authorization Manager...
-Mar 14 03:16:40 sonarqube polkitd[443569]: Started polkitd version 0.115
-Mar 14 03:16:40 sonarqube systemd[1]: Started Authorization Manager.
-Mar 14 03:17:16 sonarqube systemd[1]: Started PC/SC Smart Card Daemon.
-Mar 14 03:17:17 sonarqube pcscd[443714]: 00000000 auth.c:139:IsClientAuthorized() Process 443686 (user: 1007) is NOT authorized for action: access_pcsc
-Mar 14 03:17:17 sonarqube pcscd[443714]: 00000138 winscard_svc.c:335:ContextThread() Rejected unauthorized PC/SC client
-Mar 14 03:17:17 sonarqube pcscd[443714]: 00254383 auth.c:139:IsClientAuthorized() Process 443686 (user: 1007) is NOT authorized for action: access_pcsc
-Mar 14 03:17:17 sonarqube pcscd[443714]: 00000139 winscard_svc.c:335:ContextThread() Rejected unauthorized PC/SC client
-Mar 14 03:17:17 sonarqube pcscd[443714]: 00237399 auth.c:139:IsClientAuthorized() Process 443686 (user: 1007) is NOT authorized for action: access_pcsc
-Mar 14 03:17:17 sonarqube pcscd[443714]: 00000112 winscard_svc.c:335:ContextThread() Rejected unauthorized PC/SC client
-Mar 14 03:17:17 sonarqube pcscd[443714]: 00236498 auth.c:139:IsClientAuthorized() Process 443686 (user: 1007) is NOT authorized for action: access_pcsc
-Mar 14 03:17:17 sonarqube pcscd[443714]: 00000156 winscard_svc.c:335:ContextThread() Rejected unauthorized PC/SC client
-Mar 14 03:17:19 sonarqube pcscd[443714]: 01879086 auth.c:139:IsClientAuthorized() Process 443735 (user: 1007) is NOT authorized for action: access_pcsc
-Mar 14 03:17:19 sonarqube pcscd[443714]: 00000266 winscard_svc.c:335:ContextThread() Rejected unauthorized PC/SC client
-Mar 14 03:17:19 sonarqube pcscd[443714]: 00227554 auth.c:139:IsClientAuthorized() Process 443735 (user: 1007) is NOT authorized for action: access_pcsc
-Mar 14 03:17:19 sonarqube pcscd[443714]: 00000122 winscard_svc.c:335:ContextThread() Rejected unauthorized PC/SC client
-Mar 14 03:17:20 sonarqube pcscd[443714]: 00267250 auth.c:139:IsClientAuthorized() Process 443735 (user: 1007) is NOT authorized for action: access_pcsc
-Mar 14 03:17:20 sonarqube pcscd[443714]: 00000151 winscard_svc.c:335:ContextThread() Rejected unauthorized PC/SC client
-Mar 14 03:17:20 sonarqube pcscd[443714]: 00264390 auth.c:139:IsClientAuthorized() Process 443735 (user: 1007) is NOT authorized for action: access_pcsc
-Mar 14 03:17:20 sonarqube pcscd[443714]: 00000138 winscard_svc.c:335:ContextThread() Rejected unauthorized PC/SC client
-Mar 14 03:18:21 sonarqube systemd[1]: pcscd.service: Succeeded.
-Mar 14 03:20:00 sonarqube systemd[1]: Starting system activity accounting tool...
-Mar 14 03:20:00 sonarqube systemd[1]: sysstat-collect.service: Succeeded.
-Mar 14 03:20:00 sonarqube systemd[1]: Started system activity accounting tool.
-[sonar@sonarqube linux-x86-64]$
+Login Succeeded
+[ec2-user@gitlabsonar bin]$ docker push 179381774813.dkr.ecr.us-gov-west-1.amazonaws.com/ironbank-rhel9-base:latestThe push refers to repository [179381774813.dkr.ecr.us-gov-west-1.amazonaws.com/ironbank-rhel9-base]
+ef3e695de82e: Preparing
+eaeea8373ace: Preparing
+f421bec48ce5: Preparing
+no basic auth credentials
+[ec2-user@gitlabsonar bin]$
