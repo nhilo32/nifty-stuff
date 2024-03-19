@@ -12,6 +12,11 @@ curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip
 psql --host=devops-hilo.cam42zilvgpu.us-gov-west-1.rds.amazonaws.com --port=5432 --username=sonarqube --dbname=sonarqubedb
 GRANT ALL PRIVILEGES ON SCHEMA schema_name TO username;
 
+sudo yum install -y yum-utils shadow-utils
+sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
+sudo yum -y install terraform
+
+
 # Use UBI 9 as the base image
 FROM registry1.dso.mil/ironbank/redhat/ubi/ubi9
 
