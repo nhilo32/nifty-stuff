@@ -1,15 +1,20 @@
-aws ecr get-login-password --region us-gov-west-1 | docker login --username AWS --password-stdin 179381774813.dkr.ecr.us-gov-west-1.amazonaws.com
-
-
-[ec2-user@gitlabsonar bin]$ aws ecr get-login-password --region us-gov-west-1 | docker login --username AWS --password-stdin 040406873296.dkr.ecr.us-gov-west-1.amazonaws.com
-WARNING! Your password will be stored unencrypted in /home/ec2-user/.docker/config.json.
-Configure a credential helper to remove this warning. See
-https://docs.docker.com/engine/reference/commandline/login/#credentials-store
-
-Login Succeeded
-[ec2-user@gitlabsonar bin]$ docker push 179381774813.dkr.ecr.us-gov-west-1.amazonaws.com/ironbank-rhel9-base:latestThe push refers to repository [179381774813.dkr.ecr.us-gov-west-1.amazonaws.com/ironbank-rhel9-base]
-ef3e695de82e: Preparing
-eaeea8373ace: Preparing
-f421bec48ce5: Preparing
-no basic auth credentials
-[ec2-user@gitlabsonar bin]$
+[hilo@ip-10-22-4-214 neal]$ t plan
+╷
+│ Error: Error acquiring the state lock
+│
+│ Error message: 2 errors occurred:
+│       * operation error DynamoDB: PutItem, https response error StatusCode: 400, RequestID: 6NPREI168P8GUIIMF6S5R47LKJVV4KQNSO5AEMVJF66Q9ASUAAJG, api error
+│ AccessDeniedException: User: arn:aws-us-gov:sts::179381774813:assumed-role/ManagedInstanceProfile/i-07051b8a9bb13c416 is not authorized to perform: dynamodb:PutItem
+│ on resource: arn:aws-us-gov:dynamodb:us-gov-west-1:179381774813:table/credence-ilf4-terraform-locks because no identity-based policy allows the dynamodb:PutItem
+│ action
+│       * Unable to retrieve item from DynamoDB table "credence-ilf4-terraform-locks": operation error DynamoDB: GetItem, https response error StatusCode: 400, RequestID:
+│ 9NUFHJASVS0KC8BQ0MT33BO0JFVV4KQNSO5AEMVJF66Q9ASUAAJG, api error AccessDeniedException: User:
+│ arn:aws-us-gov:sts::179381774813:assumed-role/ManagedInstanceProfile/i-07051b8a9bb13c416 is not authorized to perform: dynamodb:GetItem on resource:
+│ arn:aws-us-gov:dynamodb:us-gov-west-1:179381774813:table/credence-ilf4-terraform-locks because no identity-based policy allows the dynamodb:GetItem action
+│
+│
+│
+│ Terraform acquires a state lock to protect the state from being written
+│ by multiple users at the same time. Please resolve the issue above and try
+│ again. For most commands, you can disable locking with the "-lock=false"
+│ flag, but this is not recommended.
