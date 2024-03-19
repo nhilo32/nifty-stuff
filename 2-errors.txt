@@ -1,48 +1,26 @@
-[ec2-user@sonarqube linux-x86-64]$ ./sonar.sh start
-/usr/bin/java
-Starting SonarQube...
-Started SonarQube.
-[ec2-user@sonarqube linux-x86-64]$ ./sonar.sh status
-/usr/bin/java
-SonarQube is running (354422).
-[ec2-user@sonarqube linux-x86-64]$ ./sonar.sh status
-/usr/bin/java
-Removed stale pid file: ./SonarQube.pid
-SonarQube is not running.
-[ec2-user@sonarqube linux-x86-64]$ cat ../../logs/sonar.log
-2024.03.12 15:21:57 INFO  app[][o.s.a.AppFileSystem] Cleaning or creating temp directory /opt/sonarqube/temp
-2024.03.12 15:21:57 INFO  app[][o.s.a.es.EsSettings] Elasticsearch listening on [HTTP: 127.0.0.1:9001, TCP: 127.0.0.1:42559]
-2024.03.12 15:21:57 INFO  app[][o.s.a.ProcessLauncherImpl] Launch process[ELASTICSEARCH] from [/opt/sonarqube/elasticsearch]: /usr/lib/jvm/java-17-openjdk-17.0.10.0.7-2.el8.x86_64/bin/java -Xms4m -Xmx64m -XX:+UseSerialGC -Dcli.name=server -Dcli.script=./bin/elasticsearch -Dcli.libs=lib/tools/server-cli -Des.path.home=/opt/sonarqube/elasticsearch -Des.path.conf=/opt/sonarqube/temp/conf/es -Des.distribution.type=tar -cp /opt/sonarqube/elasticsearch/lib/*:/opt/sonarqube/elasticsearch/lib/cli-launcher/* org.elasticsearch.launcher.CliToolLauncher
-2024.03.12 15:21:57 INFO  app[][o.s.a.SchedulerImpl] Waiting for Elasticsearch to be up and running
-2024.03.12 15:22:02 WARN  app[][o.s.a.p.AbstractManagedProcess] Process exited with exit value [ElasticSearch]: 1
-2024.03.12 15:22:02 INFO  app[][o.s.a.SchedulerImpl] Process[ElasticSearch] is stopped
-2024.03.12 15:22:02 INFO  app[][o.s.a.SchedulerImpl] SonarQube is stopped
-[ec2-user@sonarqube linux-x86-64]$
-[ec2-user@sonarqube linux-x86-64]$ cat ../../logs/nohup.log
-2024.03.12 15:21:57 INFO  app[][o.s.a.AppFileSystem] Cleaning or creating temp directory /opt/sonarqube/temp
-2024.03.12 15:21:57 INFO  app[][o.s.a.es.EsSettings] Elasticsearch listening on [HTTP: 127.0.0.1:9001, TCP: 127.0.0.1:42559]
-2024.03.12 15:21:57 INFO  app[][o.s.a.ProcessLauncherImpl] Launch process[ELASTICSEARCH] from [/opt/sonarqube/elasticsearch]: /usr/lib/jvm/java-17-openjdk-17.0.10.0.7-2.el8.x86_64/bin/java -Xms4m -Xmx64m -XX:+UseSerialGC -Dcli.name=server -Dcli.script=./bin/elasticsearch -Dcli.libs=lib/tools/server-cli -Des.path.home=/opt/sonarqube/elasticsearch -Des.path.conf=/opt/sonarqube/temp/conf/es -Des.distribution.type=tar -cp /opt/sonarqube/elasticsearch/lib/*:/opt/sonarqube/elasticsearch/lib/cli-launcher/* org.elasticsearch.launcher.CliToolLauncher
-2024.03.12 15:21:57 INFO  app[][o.s.a.SchedulerImpl] Waiting for Elasticsearch to be up and running
-ERROR: Elasticsearch did not exit normally - check the logs at /opt/sonarqube/logs/sonarqube.log
-
-ERROR: Elasticsearch exited unexpectedly
-2024.03.12 15:22:02 WARN  app[][o.s.a.p.AbstractManagedProcess] Process exited with exit value [ElasticSearch]: 1
-2024.03.12 15:22:02 INFO  app[][o.s.a.SchedulerImpl] Process[ElasticSearch] is stopped
-2024.03.12 15:22:02 INFO  app[][o.s.a.SchedulerImpl] SonarQube is stopped
-[ec2-user@sonarqube linux-x86-64]$
-[ec2-user@sonarqube linux-x86-64]$ cat ../../logs/es.log
-2024.03.12 15:22:02 ERROR es[][o.e.b.Elasticsearch] fatal exception while booting Elasticsearch
-java.lang.ExceptionInInitializerError: null
-        at org.elasticsearch.bootstrap.JNANatives.definitelyRunningAsRoot(JNANatives.java:162) ~[elasticsearch-8.6.1.jar:?]
-        at org.elasticsearch.bootstrap.Natives.definitelyRunningAsRoot(Natives.java:57) ~[elasticsearch-8.6.1.jar:?]
-        at org.elasticsearch.bootstrap.Elasticsearch.initializeNatives(Elasticsearch.java:259) ~[elasticsearch-8.6.1.jar:?]
-        at org.elasticsearch.bootstrap.Elasticsearch.initPhase2(Elasticsearch.java:166) ~[elasticsearch-8.6.1.jar:?]
-        at org.elasticsearch.bootstrap.Elasticsearch.main(Elasticsearch.java:66) ~[elasticsearch-8.6.1.jar:?]
-Caused by: java.lang.UnsupportedOperationException: Failed to allocate closure
-        at com.sun.jna.Native.registerMethod(Native Method) ~[jna-5.10.0.jar:?]
-        at com.sun.jna.Native.register(Native.java:1906) ~[jna-5.10.0.jar:?]
-        at com.sun.jna.Native.register(Native.java:1775) ~[jna-5.10.0.jar:?]
-        at com.sun.jna.Native.register(Native.java:1493) ~[jna-5.10.0.jar:?]
-        at org.elasticsearch.bootstrap.JNACLibrary.<clinit>(JNACLibrary.java:38) ~[elasticsearch-8.6.1.jar:?]
-        ... 5 more
-[ec2-user@sonarqube linux-x86-64]$
+aws_iam_role_policy_attachment.karpenter_role_attach: Still creating... [2m0s elapsed]
+╷
+│ Error: Error putting IAM role policy aws-lb-policy-vdms-prod-v1: MalformedPolicyDocument: Partition "aws" is not valid for resource "arn:aws:ec2:*:*:security-group/*".
+│       status code: 400, request id: 3c09eaaf-75f0-44dc-a28e-8e6f74a266ab
+│
+│   with aws_iam_role_policy.aws_lb_controller_1,
+│   on iam-aws-loadbalancer.tf line 18, in resource "aws_iam_role_policy" "aws_lb_controller_1":
+│   18: resource "aws_iam_role_policy" "aws_lb_controller_1" {
+│
+╵
+╷
+│ Error: error reading IAM Role Managed Policy Attachment (vdms-prod-v1-2C4xGPdd-cluster-20240319230813351500000006:arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy): couldn't find resource
+│
+│   with aws_iam_role_policy_attachment.eks_role_attach_2,
+│   on iam-eks.tf line 107, in resource "aws_iam_role_policy_attachment" "eks_role_attach_2":
+│  107: resource "aws_iam_role_policy_attachment" "eks_role_attach_2" {
+│
+╵
+╷
+│ Error: error reading IAM Role Managed Policy Attachment (vdms-prod-v1-2C4xGPdd-cluster-20240319230813351500000006:arn:aws:iam::aws:policy/ElasticLoadBalancingFullAccess): couldn't find resource
+│
+│   with aws_iam_role_policy_attachment.eks_role_attach_3,
+│   on iam-eks.tf line 112, in resource "aws_iam_role_policy_attachment" "eks_role_attach_3":
+│  112: resource "aws_iam_role_policy_attachment" "eks_role_attach_3" {
+│
+╵
