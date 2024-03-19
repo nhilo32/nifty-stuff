@@ -9,6 +9,8 @@ http://ip-10-22-4-214.us-gov-west-1.compute.internal
 
 curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
 
+https://esmc-base-cfn-templates.s3-us-gov-west-1.amazonaws.com/Baseline-Templates/S3_Base_Template.yml 
+
 psql --host=devops-hilo.cam42zilvgpu.us-gov-west-1.rds.amazonaws.com --port=5432 --username=sonarqube --dbname=sonarqubedb
 GRANT ALL PRIVILEGES ON SCHEMA schema_name TO username;
 
