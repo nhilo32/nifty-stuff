@@ -18,6 +18,8 @@ sudo yum install -y yum-utils shadow-utils
 sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinux/hashicorp.repo
 sudo yum -y install terraform
 
+aws s3 ls s3://credence-il4-terraform-states
+aws s3 cp s3://credence-il4-terraform-states/vdms_eks.zip ./
 
 # Use UBI 9 as the base image
 FROM registry1.dso.mil/ironbank/redhat/ubi/ubi9
