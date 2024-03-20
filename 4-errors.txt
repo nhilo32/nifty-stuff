@@ -1,0 +1,34 @@
+module "iam_assumable_role_aws_efs_csi" {
+  source                        = "terraform-aws-modules/iam/aws//modules/iam-assumable-role-with-oidc"
+  version                       = "4.7.0"
+  create_role                   = true
+  role_name                     = "efs-csi-controller-${var.cluster_name}"
+  provider_url                  = module.eks.cluster_oidc_issuer_url
+  oidc_fully_qualified_subjects = ["system:serviceaccount:kube-system:efs-csi-controller-sa"]
+
+  tags = {
+    Owner        = "Credence DevSecOps"
+    Environment  = var.environment
+    "Managed by" = "Terraform"
+    "Used by"    = local.cluster_name
+  }
+}
+
+resource "aws_iam_role_policy" "aws_efs_csi_controller" {
+  name = "efs-csi-${var.cluster_name}"
+  role = module.iam_assumable_role_aws_efs_csi.iam_role_name
+
+  policy = jsonencode(
+    {
+      "Version": "2012-10-17",
+      "Statement": [
+        {
+          "Sid": "VisualEditor0",
+          "Effect": "Allow",
+          "Action": "elasticfilesystem:*",
+          "Resource": "*"
+        }
+      ]
+    }
+  )
+}
