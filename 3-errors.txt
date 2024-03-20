@@ -1,43 +1,27 @@
-[hilo@ip-10-22-4-214 neal]$ cat ../.aws/credentials
-[VDMS]
-role_arn = arn:aws-us-gov:iam::236402593911:role/OrganizationAccountAccessRole
-region = us-gov-west-1
-output = text
-[hilo@ip-10-22-4-214 neal]$
-[hilo@ip-10-22-4-214 neal]$ cat main.tf
-provider "aws" {
-  region = "us-gov-west-1"
-  profile = "VDMS"
-  sts_region = "us-gov-west-1"
-}
-
-resource "aws_dynamodb_table" "terraform-locks" {
-  hash_key = "LockID"
-  name = "hilo-test-table"
-  billing_mode = "PAY_PER_REQUEST"
-  attribute {
-    name = "LockID"
-    type = "S"
-  }
-}
-[hilo@ip-10-22-4-214 neal]$
-[hilo@ip-10-22-4-214 neal]$ terraform plan
 ╷
-│ Error: Error acquiring the state lock
+│ Error: Error attaching policy arn:aws-us-gov:iam::aws-us-gov:policy/CloudWatchAgentServerPolicy to IAM Role vdms-prod-v1-2C4xGPdd-cluster-20240319230813351500000006:InvalidInput: ARN arn:aws-us-gov:iam::aws-us-gov:policy/CloudWatchAgentServerPolicy is not valid.
+│       status code: 400, request id: a066b55a-75c0-43a8-9258-6fd55c204651
 │
-│ Error message: 2 errors occurred:
-│       * operation error DynamoDB: PutItem, https response error StatusCode: 400, RequestID: 6NPREI168P8GUIIMF6S5R47LKJVV4KQNSO5AEMVJF66Q9ASUAAJG, api error
-│ AccessDeniedException: User: arn:aws-us-gov:sts::179381774813:assumed-role/ManagedInstanceProfile/i-07051b8a9bb13c416 is not authorized to perform: dynamodb:PutItem
-│ on resource: arn:aws-us-gov:dynamodb:us-gov-west-1:179381774813:table/credence-ilf4-terraform-locks because no identity-based policy allows the dynamodb:PutItem
-│ action
-│       * Unable to retrieve item from DynamoDB table "credence-ilf4-terraform-locks": operation error DynamoDB: GetItem, https response error StatusCode: 400, RequestID:
-│ 9NUFHJASVS0KC8BQ0MT33BO0JFVV4KQNSO5AEMVJF66Q9ASUAAJG, api error AccessDeniedException: User:
-│ arn:aws-us-gov:sts::179381774813:assumed-role/ManagedInstanceProfile/i-07051b8a9bb13c416 is not authorized to perform: dynamodb:GetItem on resource:
-│ arn:aws-us-gov:dynamodb:us-gov-west-1:179381774813:table/credence-ilf4-terraform-locks because no identity-based policy allows the dynamodb:GetItem action
+│   with aws_iam_role_policy_attachment.eks_role_attach_2,
+│   on iam-eks.tf line 107, in resource "aws_iam_role_policy_attachment" "eks_role_attach_2":
+│  107: resource "aws_iam_role_policy_attachment" "eks_role_attach_2" {
 │
+╵
+╷
+│ Error: Error attaching policy arn:aws-us-gov:iam::aws-us-gov:policy/ElasticLoadBalancingFullAccess to IAM Role vdms-prod-v1-2C4xGPdd-cluster-20240319230813351500000006: InvalidInput: ARN arn:aws-us-gov:iam::aws-us-gov:policy/ElasticLoadBalancingFullAccess is not valid.
+│       status code: 400, request id: e0713219-d370-4a9a-a520-2cbfd0194505
 │
+│   with aws_iam_role_policy_attachment.eks_role_attach_3,
+│   on iam-eks.tf line 112, in resource "aws_iam_role_policy_attachment" "eks_role_attach_3":
+│  112: resource "aws_iam_role_policy_attachment" "eks_role_attach_3" {
 │
-│ Terraform acquires a state lock to protect the state from being written
-│ by multiple users at the same time. Please resolve the issue above and try
-│ again. For most commands, you can disable locking with the "-lock=false"
-│ flag, but this is not recommended.
+╵
+╷
+│ Error: Error attaching policy arn:aws-us-gov:iam::aws-us-gov:policy/AmazonEC2FullAccess to IAM Role vdms-prod-v1-2C4xGPdd-cluster-20240319230813351500000006: InvalidInput: ARN arn:aws-us-gov:iam::aws-us-gov:policy/AmazonEC2FullAccess is not valid.
+│       status code: 400, request id: 886af41c-59a0-4484-b67c-fb67409a83a8
+│
+│   with aws_iam_role_policy_attachment.eks_role_attach_4,
+│   on iam-eks.tf line 117, in resource "aws_iam_role_policy_attachment" "eks_role_attach_4":
+│  117: resource "aws_iam_role_policy_attachment" "eks_role_attach_4" {
+│
+╵
