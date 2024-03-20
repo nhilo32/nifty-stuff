@@ -1,27 +1,747 @@
+[hilo@ip-10-22-4-214 vdms_eks]$ t apply -var-file build_eks_input_variables.tfvars
+random_string.suffix: Refreshing state... [id=2C4xGPdd]
+data.aws_ssm_parameter.latest_eks_ami: Reading...
+module.eks.data.aws_default_tags.current: Reading...
+module.iam_assumable_role_aws_lb.data.aws_caller_identity.current: Reading...
+module.eks.module.self_managed_node_group["v1-sm1"].data.aws_default_tags.current: Reading...
+module.eks.module.kms.data.aws_partition.current: Reading...
+module.eks.data.aws_partition.current: Reading...
+module.eks.module.self_managed_node_group["v1-sm2"].data.aws_default_tags.current: Reading...
+module.iam_assumable_role_aws_efs_csi.data.aws_caller_identity.current: Reading...
+module.iam_assumable_role_fluentbit.data.aws_partition.current: Reading...
+module.eks.data.aws_default_tags.current: Read complete after 0s [id=aws-us-gov]
+module.eks.module.self_managed_node_group["v1-sm1"].data.aws_default_tags.current: Read complete after 0s [id=aws-us-gov]
+module.eks.aws_security_group.node[0]: Refreshing state... [id=sg-082d29db4007aff7b]
+aws_ssm_parameter.eks_vpc_id: Refreshing state... [id=/Terraform/EKS/vdms-prod-v1-2C4xGPdd/vpc_id]
+module.eks.module.self_managed_node_group["v1-sm2"].data.aws_partition.current: Reading...
+module.eks.data.aws_partition.current: Read complete after 0s [id=aws-us-gov]
+module.eks.module.kms.data.aws_partition.current: Read complete after 0s [id=aws-us-gov]
+module.eks.module.self_managed_node_group["v1-sm2"].data.aws_default_tags.current: Read complete after 0s [id=aws-us-gov]
+module.iam_assumable_role_fluentbit.data.aws_partition.current: Read complete after 0s [id=aws-us-gov]
+module.eks.module.self_managed_node_group["v1-sm1"].data.aws_partition.current: Reading...
+module.eks.module.self_managed_node_group["v1-sm1"].aws_security_group.this[0]: Refreshing state... [id=sg-0da68185bc0812cc7]
+module.eks.module.self_managed_node_group["v1-sm2"].data.aws_partition.current: Read complete after 0s [id=aws-us-gov]
+module.eks.module.self_managed_node_group["v1-sm2"].aws_security_group.this[0]: Refreshing state... [id=sg-0dddad8a3df2dc40a]
+module.iam_assumable_role_aws_lb.data.aws_caller_identity.current: Read complete after 0s [id=179381774813]
+module.iam_assumable_role_aws_efs_csi.data.aws_caller_identity.current: Read complete after 0s [id=179381774813]
+aws_ssm_parameter.eks_vpc_cidr: Refreshing state... [id=/Terraform/EKS/vdms-prod-v1-2C4xGPdd/vpc_cidr]
+module.eks.data.aws_caller_identity.current: Reading...
+module.eks.module.self_managed_node_group["v1-sm1"].data.aws_partition.current: Read complete after 0s [id=aws-us-gov]
+module.iam_assumable_role_aws_lb.data.aws_partition.current: Reading...
+module.iam_assumable_role_aws_lb.data.aws_partition.current: Read complete after 0s [id=aws-us-gov]
+module.eks.module.self_managed_node_group["v1-sm2"].data.aws_caller_identity.current: Reading...
+module.eks.module.self_managed_node_group["v1-sm1"].data.aws_caller_identity.current: Reading...
+module.eks.aws_security_group.cluster[0]: Refreshing state... [id=sg-0478e9ff296566ce4]
+data.aws_ssm_parameter.latest_eks_ami: Read complete after 0s [id=/aws/service/eks/optimized-ami/1.25/amazon-linux-2/recommended/image_id]
+data.aws_availability_zones.available: Reading...
+module.eks.module.self_managed_node_group["v1-sm2"].data.aws_caller_identity.current: Read complete after 0s [id=179381774813]
+module.eks.data.aws_caller_identity.current: Read complete after 0s [id=179381774813]
+module.iam_assumable_role_karpenter.data.aws_partition.current: Reading...
+module.eks.module.self_managed_node_group["v1-sm1"].data.aws_caller_identity.current: Read complete after 0s [id=179381774813]
+module.iam_assumable_role_karpenter.data.aws_partition.current: Read complete after 0s [id=aws-us-gov]
+aws_ssm_parameter.eks_subnet_ids: Refreshing state... [id=/Terraform/EKS/vdms-prod-v1-2C4xGPdd/vpc_subnet_ids]
+module.karpenter_node_sg.aws_security_group.this_name_prefix[0]: Refreshing state... [id=sg-0e5cf407c8475a161]
+aws_kms_key.eks: Refreshing state... [id=4a6cb4ad-2185-4fb8-ae0e-1a2f004ee9fb]
+data.aws_availability_zones.available: Read complete after 0s [id=us-gov-west-1]
+module.iam_assumable_role_fluentbit.data.aws_caller_identity.current: Reading...
+module.iam_assumable_role_fluentbit.data.aws_caller_identity.current: Read complete after 0s [id=179381774813]
+aws_iam_policy.karpenter_controller_policy: Refreshing state... [id=arn:aws-us-gov:iam::179381774813:policy/karpenter-vdms-prod-v1-2C4xGPdd]
+module.iam_assumable_role_karpenter.data.aws_caller_identity.current: Reading...
+module.iam_assumable_role_karpenter.data.aws_caller_identity.current: Read complete after 0s [id=179381774813]
+module.iam_assumable_role_aws_efs_csi.data.aws_partition.current: Reading...
+module.eks.module.kms.data.aws_caller_identity.current: Reading...
+module.iam_assumable_role_aws_efs_csi.data.aws_partition.current: Read complete after 0s [id=aws-us-gov]
+module.eks.module.self_managed_node_group["v1-sm2"].data.aws_iam_policy_document.assume_role_policy[0]: Reading...
+module.eks.module.self_managed_node_group["v1-sm2"].data.aws_iam_policy_document.assume_role_policy[0]: Read complete after 0s [id=2560088296]
+module.eks.module.kms.data.aws_caller_identity.current: Read complete after 0s [id=179381774813]
+module.eks.module.self_managed_node_group["v1-sm1"].data.aws_iam_policy_document.assume_role_policy[0]: Reading...
+module.eks.aws_cloudwatch_log_group.this[0]: Refreshing state... [id=/aws/eks/vdms-prod-v1-2C4xGPdd/cluster]
+data.aws_iam_policy_document.kubernetes_cluster_autoscaler[0]: Reading...
+module.eks.module.self_managed_node_group["v1-sm1"].data.aws_iam_policy_document.assume_role_policy[0]: Read complete after 0s [id=2560088296]
+data.aws_iam_policy_document.kubernetes_cluster_autoscaler[0]: Read complete after 0s [id=1342303187]
+module.eks.aws_security_group_rule.node["egress_self_coredns_udp"]: Refreshing state... [id=sgrule-1810729467]
+module.eks.data.aws_iam_policy_document.assume_role_policy[0]: Reading...
+module.eks.data.aws_iam_policy_document.assume_role_policy[0]: Read complete after 0s [id=2764486067]
+module.eks.aws_security_group_rule.node["egress_ntp_udp"]: Refreshing state... [id=sgrule-2079700925]
+module.eks.aws_security_group_rule.node["ingress_self_all"]: Refreshing state... [id=sgrule-3006071717]
+module.eks.aws_security_group_rule.node["ingress_self_coredns_udp"]: Refreshing state... [id=sgrule-2833529348]
+module.eks.aws_security_group_rule.node["ingress_cluster_kubelet"]: Refreshing state... [id=sgrule-159632947]
+module.eks.aws_security_group_rule.node["egress_cluster_443"]: Refreshing state... [id=sgrule-1684565081]
+module.eks.aws_security_group_rule.node["egress_ntp_tcp"]: Refreshing state... [id=sgrule-90935984]
+module.eks.aws_security_group_rule.node["egress_https"]: Refreshing state... [id=sgrule-3669340078]
+module.eks.aws_security_group_rule.node["egress_self_coredns_tcp"]: Refreshing state... [id=sgrule-3851029405]
+module.eks.aws_security_group_rule.node["ingress_cluster_443"]: Refreshing state... [id=sgrule-2549496352]
+module.eks.aws_security_group_rule.node["ingress_self_coredns_tcp"]: Refreshing state... [id=sgrule-213621227]
+module.eks.module.self_managed_node_group["v1-sm2"].aws_iam_role.this[0]: Refreshing state... [id=v1-sm2-node-group-20240319230814121000000008]
+module.eks.module.self_managed_node_group["v1-sm1"].aws_security_group_rule.this["0"]: Refreshing state... [id=sgrule-141614450]
+module.eks.module.self_managed_node_group["v1-sm1"].aws_security_group_rule.this["1"]: Refreshing state... [id=sgrule-1106113854]
+module.eks.module.self_managed_node_group["v1-sm1"].aws_iam_role.this[0]: Refreshing state... [id=v1-sm1-node-group-20240319230813455500000007]
+module.eks.module.self_managed_node_group["v1-sm2"].aws_security_group_rule.this["1"]: Refreshing state... [id=sgrule-1888369001]
+module.eks.module.self_managed_node_group["v1-sm2"].aws_security_group_rule.this["0"]: Refreshing state... [id=sgrule-402593144]
+aws_iam_policy.kubernetes_cluster_autoscaler[0]: Refreshing state... [id=arn:aws-us-gov:iam::179381774813:policy/vdms-prod-v1-2C4xGPdd-cluster-autoscaler]
+module.eks.aws_security_group_rule.cluster["egress_nodes_443"]: Refreshing state... [id=sgrule-2595126724]
+module.eks.aws_security_group_rule.cluster["egress_nodes_kubelet"]: Refreshing state... [id=sgrule-1358495708]
+module.eks.aws_security_group_rule.cluster["ingress_nodes_443"]: Refreshing state... [id=sgrule-510874829]
+module.karpenter_node_sg.aws_security_group_rule.ingress_with_cidr_blocks[1]: Refreshing state... [id=sgrule-4184298703]
+module.karpenter_node_sg.aws_security_group_rule.egress_with_cidr_blocks[1]: Refreshing state... [id=sgrule-59419581]
+module.karpenter_node_sg.aws_security_group_rule.ingress_with_cidr_blocks[0]: Refreshing state... [id=sgrule-303305194]
+module.karpenter_node_sg.aws_security_group_rule.egress_with_cidr_blocks[0]: Refreshing state... [id=sgrule-272093845]
+module.eks.aws_iam_role.this[0]: Refreshing state... [id=vdms-prod-v1-2C4xGPdd-cluster-20240319230813351500000006]
+module.eks.module.self_managed_node_group["v1-sm1"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws:policy/AmazonEKSWorkerNodePolicy"]: Refreshing state... [id=v1-sm1-node-group-20240319230813455500000007-20240319230818030300000013]
+module.eks.module.self_managed_node_group["v1-sm1"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws:policy/AmazonS3ReadOnlyAccess"]: Refreshing state... [id=v1-sm1-node-group-20240319230813455500000007-20240320014605905000000003]
+module.eks.module.self_managed_node_group["v1-sm2"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws:policy/AmazonEKSWorkerNodePolicy"]: Refreshing state... [id=v1-sm2-node-group-20240319230814121000000008-2024031923103359660000001e]
+module.eks.module.self_managed_node_group["v1-sm1"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws:policy/AmazonEKS_CNI_Policy"]: Refreshing state... [id=v1-sm1-node-group-20240319230813455500000007-20240319230817994200000012]
+module.eks.module.self_managed_node_group["v1-sm2"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws:policy/AmazonEKS_CNI_Policy"]: Refreshing state... [id=v1-sm2-node-group-20240319230814121000000008-20240319230817886100000011]
+module.eks.module.self_managed_node_group["v1-sm2"].aws_iam_instance_profile.this[0]: Refreshing state... [id=v1-sm2-node-group-2024031923103323440000001c]
+module.eks.module.self_managed_node_group["v1-sm2"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws:policy/AmazonS3ReadOnlyAccess"]: Refreshing state... [id=v1-sm2-node-group-20240319230814121000000008-20240320014604530200000001]
+module.eks.module.self_managed_node_group["v1-sm2"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"]: Refreshing state... [id=v1-sm2-node-group-20240319230814121000000008-20240319230818712500000016]
+module.eks.module.self_managed_node_group["v1-sm2"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws:policy/AmazonSSMManagedInstanceCore"]: Refreshing state... [id=v1-sm2-node-group-20240319230814121000000008-20240320014606603800000004]
+module.eks.module.self_managed_node_group["v1-sm1"].aws_iam_instance_profile.this[0]: Refreshing state... [id=v1-sm1-node-group-2024031923103323300000001b]
+module.eks.module.self_managed_node_group["v1-sm1"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws:policy/AmazonSSMManagedInstanceCore"]: Refreshing state... [id=v1-sm1-node-group-20240319230813455500000007-20240320014605223800000002]
+module.eks.module.self_managed_node_group["v1-sm1"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"]: Refreshing state... [id=v1-sm1-node-group-20240319230813455500000007-20240319230819411900000017]
+module.eks.aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws:policy/AmazonEKSClusterPolicy"]: Refreshing state... [id=vdms-prod-v1-2C4xGPdd-cluster-20240319230813351500000006-2024031923081659700000000a]
+module.eks.aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws:policy/AmazonEKSVPCResourceController"]: Refreshing state... [id=vdms-prod-v1-2C4xGPdd-cluster-20240319230813351500000006-20240319230816588500000009]
+aws_iam_role_policy_attachment.eks_role_attach_2: Refreshing state... [id=vdms-prod-v1-2C4xGPdd-cluster-20240319230813351500000006-20240320142213076700000001]
+aws_iam_role_policy_attachment.eks_role_attach_5: Refreshing state... [id=vdms-prod-v1-2C4xGPdd-cluster-20240319230813351500000006-20240320142229793800000003]
+aws_iam_role_policy_attachment.eks_role_attach_3: Refreshing state... [id=vdms-prod-v1-2C4xGPdd-cluster-20240319230813351500000006-20240320142243129800000004]
+aws_iam_role_policy_attachment.eks_role_attach: Refreshing state... [id=vdms-prod-v1-2C4xGPdd-cluster-20240319230813351500000006-2024031923081717850000000e]
+aws_iam_role_policy_attachment.eks_role_attach_4: Refreshing state... [id=vdms-prod-v1-2C4xGPdd-cluster-20240319230813351500000006-20240320142229097800000002]
+aws_iam_role_policy.karpenter_controller: Refreshing state... [id=vdms-prod-v1-2C4xGPdd-cluster-20240319230813351500000006:karpenter-policy-1-vdms-prod-v1-2C4xGPdd]
+module.eks.aws_iam_policy.cluster_encryption[0]: Refreshing state... [id=arn:aws-us-gov:iam::179381774813:policy/vdms-prod-v1-2C4xGPdd-cluster-ClusterEncryption2024031923103324000000001d]
+module.eks.aws_eks_cluster.this[0]: Refreshing state... [id=vdms-prod-v1-2C4xGPdd]
+module.eks.aws_iam_role_policy_attachment.cluster_encryption[0]: Refreshing state... [id=vdms-prod-v1-2C4xGPdd-cluster-20240319230813351500000006-20240319231034709000000021]
+module.eks.data.tls_certificate.this[0]: Reading...
+module.eks.aws_ec2_tag.cluster_primary_security_group["Managed by"]: Refreshing state... [id=sg-08e7e8c2fbf601f4e,Managed by]
+module.eks.aws_ec2_tag.cluster_primary_security_group["Owner"]: Refreshing state... [id=sg-08e7e8c2fbf601f4e,Owner]
+module.eks.aws_ec2_tag.cluster_primary_security_group["Environment"]: Refreshing state... [id=sg-08e7e8c2fbf601f4e,Environment]
+module.eks.aws_ec2_tag.cluster_primary_security_group["karpenter.sh/discovery"]: Refreshing state... [id=sg-08e7e8c2fbf601f4e,karpenter.sh/discovery]
+module.eks.aws_ec2_tag.cluster_primary_security_group["Used by"]: Refreshing state... [id=sg-08e7e8c2fbf601f4e,Used by]
+module.eks.module.self_managed_node_group["v1-sm2"].data.aws_ami.eks_default[0]: Reading...
+data.aws_eks_cluster.cluster: Reading...
+data.aws_eks_cluster_auth.cluster: Reading...
+data.aws_eks_cluster_auth.cluster: Read complete after 0s [id=vdms-prod-v1-2C4xGPdd]
+module.eks.module.self_managed_node_group["v1-sm1"].data.aws_ami.eks_default[0]: Reading...
+module.eks.module.self_managed_node_group["v1-sm2"].data.aws_ami.eks_default[0]: Read complete after 0s [id=ami-0f70eacf24b241b49]
+aws_ssm_parameter.eks_cluster_version: Refreshing state... [id=/Terraform/EKS/vdms-prod-v1-2C4xGPdd/cluster_version]
+null_resource.kubectl_aws_auth_creation: Refreshing state... [id=8546682784901634497]
+module.eks.module.self_managed_node_group["v1-sm1"].data.aws_ami.eks_default[0]: Read complete after 0s [id=ami-0f70eacf24b241b49]
+null_resource.tagger["subnet-1aafe67e"]: Refreshing state... [id=9086767995788725714]
+module.iam_assumable_role_aws_lb.data.aws_iam_policy_document.assume_role_with_oidc[0]: Reading...
+null_resource.tagger["subnet-853d75f3"]: Refreshing state... [id=5476938558488007366]
+module.iam_assumable_role_fluentbit.data.aws_iam_policy_document.assume_role_with_oidc[0]: Reading...
+module.iam_assumable_role_karpenter.data.aws_iam_policy_document.assume_role_with_oidc[0]: Reading...
+module.iam_assumable_role_aws_lb.data.aws_iam_policy_document.assume_role_with_oidc[0]: Read complete after 0s [id=2315517354]
+module.iam_assumable_role_fluentbit.data.aws_iam_policy_document.assume_role_with_oidc[0]: Read complete after 0s [id=1961772167]
+module.eks.module.self_managed_node_group["v1-sm2"].aws_launch_template.this[0]: Refreshing state... [id=lt-069b991379d3893fa]
+module.iam_assumable_role_aws_efs_csi.data.aws_iam_policy_document.assume_role_with_oidc[0]: Reading...
+module.iam_assumable_role_karpenter.data.aws_iam_policy_document.assume_role_with_oidc[0]: Read complete after 0s [id=1607063157]
+module.iam_assumable_role_aws_efs_csi.data.aws_iam_policy_document.assume_role_with_oidc[0]: Read complete after 0s [id=591157878]
+module.iam_assumable_role_karpenter.aws_iam_role.this[0]: Refreshing state... [id=karpenter-controller-vdms-prod-v1]
+module.iam_assumable_role_aws_efs_csi.aws_iam_role.this[0]: Refreshing state... [id=efs-csi-controller-vdms-prod-v1]
+module.iam_assumable_role_fluentbit.aws_iam_role.this[0]: Refreshing state... [id=fluentbit-controller-vdms-prod-v1]
+module.eks.module.self_managed_node_group["v1-sm1"].aws_launch_template.this[0]: Refreshing state... [id=lt-0595c609f74a1fc81]
+module.iam_assumable_role_aws_lb.aws_iam_role.this[0]: Refreshing state... [id=aws-lb-controller-vdms-prod-v1]
+module.eks.data.tls_certificate.this[0]: Read complete after 1s [id=9634dbfed1858dea44ae8f3937e2d7f9cce36b50]
+module.eks.aws_iam_openid_connect_provider.oidc_provider[0]: Refreshing state... [id=arn:aws-us-gov:iam::179381774813:oidc-provider/oidc.eks.us-gov-west-1.amazonaws.com/id/131F7FB3B0FD36BA8D4958177CECD2AB]
+module.eks.module.self_managed_node_group["v1-sm2"].aws_autoscaling_group.this[0]: Refreshing state... [id=v1-sm2-20240320014634033100000012]
+module.eks.module.self_managed_node_group["v1-sm1"].aws_autoscaling_group.this[0]: Refreshing state... [id=v1-sm1-20240320014634032800000011]
+data.aws_eks_cluster.cluster: Read complete after 0s [id=vdms-prod-v1-2C4xGPdd]
+data.aws_iam_policy_document.kubernetes_cluster_autoscaler_assume[0]: Reading...
+data.aws_iam_policy_document.kubernetes_cluster_autoscaler_assume[0]: Read complete after 0s [id=4292213226]
+aws_iam_role.kubernetes_cluster_autoscaler[0]: Refreshing state... [id=vdms-prod-v1-2C4xGPdd-cluster-autoscaler]
+aws_iam_role_policy_attachment.group_1_attach: Refreshing state... [id=v1-sm1-node-group-20240319230813455500000007-20240320014720139800000013]
+aws_ssm_parameter.eks_node_groups: Refreshing state... [id=/Terraform/EKS/vdms-prod-v1-2C4xGPdd/autoscaling_groups]
+aws_iam_role_policy_attachment.group_2_attach: Refreshing state... [id=v1-sm2-node-group-20240319230814121000000008-20240320014720858900000014]
+aws_iam_role_policy.fluentbit_controller: Refreshing state... [id=fluentbit-controller-vdms-prod-v1:fluentbit-write-s3-policy-vdms-prod-v1-2C4xGPdd]
+aws_iam_role_policy.karpenter_controller_1: Refreshing state... [id=karpenter-controller-vdms-prod-v1:karpenter-policy-2-vdms-prod-v1]
+aws_iam_role_policy.aws_efs_csi_controller: Refreshing state... [id=efs-csi-controller-vdms-prod-v1:efs-csi-vdms-prod-v1]
+aws_iam_role_policy.aws_lb_controller_1: Refreshing state... [id=aws-lb-controller-vdms-prod-v1:aws-lb-policy-vdms-prod-v1]
+aws_iam_role_policy_attachment.kubernetes_cluster_autoscaler[0]: Refreshing state... [id=vdms-prod-v1-2C4xGPdd-cluster-autoscaler-20240319231946380500000026]
+
+Terraform used the selected providers to generate the following execution plan. Resource actions are indicated with the following symbols:
+  + create
+  ~ update in-place
+  - destroy
+
+Terraform will perform the following actions:
+
+  # aws_iam_role_policy_attachment.group_1_attach_2 will be created
+  + resource "aws_iam_role_policy_attachment" "group_1_attach_2" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws-us-gov:iam::aws:policy/CloudWatchAgentServerPolicy"
+      + role       = "v1-sm1-node-group-20240319230813455500000007"
+    }
+
+  # aws_iam_role_policy_attachment.group_1_attach_3 will be created
+  + resource "aws_iam_role_policy_attachment" "group_1_attach_3" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws-us-gov:iam::aws:policy/ElasticLoadBalancingFullAccess"
+      + role       = "v1-sm1-node-group-20240319230813455500000007"
+    }
+
+  # aws_iam_role_policy_attachment.group_1_attach_4 will be created
+  + resource "aws_iam_role_policy_attachment" "group_1_attach_4" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws-us-gov:iam::aws:policy/AmazonEC2FullAccess"
+      + role       = "v1-sm1-node-group-20240319230813455500000007"
+    }
+
+  # aws_iam_role_policy_attachment.group_1_attach_5 will be created
+  + resource "aws_iam_role_policy_attachment" "group_1_attach_5" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws-us-gov:iam::aws:policy/AWSWAFFullAccess"
+      + role       = "v1-sm1-node-group-20240319230813455500000007"
+    }
+
+  # aws_iam_role_policy_attachment.group_2_attach_2 will be created
+  + resource "aws_iam_role_policy_attachment" "group_2_attach_2" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws-us-gov:iam::aws:policy/CloudWatchAgentServerPolicy"
+      + role       = "v1-sm2-node-group-20240319230814121000000008"
+    }
+
+  # aws_iam_role_policy_attachment.group_2_attach_3 will be created
+  + resource "aws_iam_role_policy_attachment" "group_2_attach_3" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws-us-gov:iam::aws:policy/ElasticLoadBalancingFullAccess"
+      + role       = "v1-sm2-node-group-20240319230814121000000008"
+    }
+
+  # aws_iam_role_policy_attachment.group_2_attach_4 will be created
+  + resource "aws_iam_role_policy_attachment" "group_2_attach_4" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws-us-gov:iam::aws:policy/AmazonEC2FullAccess"
+      + role       = "v1-sm2-node-group-20240319230814121000000008"
+    }
+
+  # aws_iam_role_policy_attachment.group_2_attach_5 will be created
+  + resource "aws_iam_role_policy_attachment" "group_2_attach_5" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws-us-gov:iam::aws:policy/AWSWAFFullAccess"
+      + role       = "v1-sm2-node-group-20240319230814121000000008"
+    }
+
+  # aws_iam_role_policy_attachment.karpenter_role_attach will be created
+  + resource "aws_iam_role_policy_attachment" "karpenter_role_attach" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws-us-gov:iam::aws:policy/CloudWatchAgentServerPolicy"
+      + role       = "karpenter-controller-vdms-prod-v1"
+    }
+
+  # aws_iam_role_policy_attachment.karpenter_role_attach_2 will be created
+  + resource "aws_iam_role_policy_attachment" "karpenter_role_attach_2" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws-us-gov:iam::aws:policy/ElasticLoadBalancingFullAccess"
+      + role       = "karpenter-controller-vdms-prod-v1"
+    }
+
+  # aws_iam_role_policy_attachment.karpenter_role_attach_3 will be created
+  + resource "aws_iam_role_policy_attachment" "karpenter_role_attach_3" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws-us-gov:iam::aws:policy/AmazonEC2FullAccess"
+      + role       = "karpenter-controller-vdms-prod-v1"
+    }
+
+  # aws_iam_role_policy_attachment.karpenter_role_attach_4 will be created
+  + resource "aws_iam_role_policy_attachment" "karpenter_role_attach_4" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws-us-gov:iam::aws:policy/AWSWAFFullAccess"
+      + role       = "karpenter-controller-vdms-prod-v1"
+    }
+
+  # kubernetes_config_map.aws-auth will be created
+  + resource "kubernetes_config_map" "aws-auth" {
+      + data = {
+          + "mapRoles" = <<-EOT
+                - groups:
+                  - system:bootstrappers
+                  - system:nodes
+                  rolearn: arn:aws-us-gov:iam::179381774813:role/v1-sm1-node-group-20240319230813455500000007
+                  username: system:node:{{EC2PrivateDNSName}}
+                - groups:
+                  - system:bootstrappers
+                  - system:nodes
+                  rolearn: arn:aws-us-gov:iam::179381774813:role/v1-sm2-node-group-20240319230814121000000008
+                  username: system:node:{{EC2PrivateDNSName}}
+            EOT
+          + "mapUsers" = jsonencode(
+                [
+                  + {
+                      + groups   = [
+                          + "system:masters",
+                        ]
+                      + userarn  = "arn:aws-us-gov:iam::179381774813:role/OrganizationAdminAccessRole"
+                      + username = "OrganizationAdminAccessRole"
+                    },
+                  + {
+                      + groups   = [
+                          + "system:masters",
+                        ]
+                      + userarn  = "arn:aws-us-gov:iam::179381774813:role/OrganizationAccountAccessRole"
+                      + username = "OrganizationAccountAccessRole"
+                    },
+                ]
+            )
+        }
+      + id   = (known after apply)
+
+      + metadata {
+          + generation       = (known after apply)
+          + name             = "aws-auth"
+          + namespace        = "kube-system"
+          + resource_version = (known after apply)
+          + uid              = (known after apply)
+        }
+    }
+
+  # kubernetes_namespace.amazon-cloudwatch will be created
+  + resource "kubernetes_namespace" "amazon-cloudwatch" {
+      + id                               = (known after apply)
+      + wait_for_default_service_account = false
+
+      + metadata {
+          + generation       = (known after apply)
+          + name             = "amazon-cloudwatch"
+          + resource_version = (known after apply)
+          + uid              = (known after apply)
+        }
+    }
+
+  # kubernetes_namespace.dev will be created
+  + resource "kubernetes_namespace" "dev" {
+      + id                               = (known after apply)
+      + wait_for_default_service_account = false
+
+      + metadata {
+          + generation       = (known after apply)
+          + name             = "dev"
+          + resource_version = (known after apply)
+          + uid              = (known after apply)
+        }
+    }
+
+  # kubernetes_namespace.feature-branches will be created
+  + resource "kubernetes_namespace" "feature-branches" {
+      + id                               = (known after apply)
+      + wait_for_default_service_account = false
+
+      + metadata {
+          + generation       = (known after apply)
+          + name             = "feature-branches"
+          + resource_version = (known after apply)
+          + uid              = (known after apply)
+        }
+    }
+
+  # kubernetes_namespace.ingress-nginx will be created
+  + resource "kubernetes_namespace" "ingress-nginx" {
+      + id                               = (known after apply)
+      + wait_for_default_service_account = false
+
+      + metadata {
+          + generation       = (known after apply)
+          + name             = "ingress-nginx"
+          + resource_version = (known after apply)
+          + uid              = (known after apply)
+        }
+    }
+
+  # kubernetes_namespace.jenkins will be created
+  + resource "kubernetes_namespace" "jenkins" {
+      + id                               = (known after apply)
+      + wait_for_default_service_account = false
+
+      + metadata {
+          + generation       = (known after apply)
+          + name             = "jenkins"
+          + resource_version = (known after apply)
+          + uid              = (known after apply)
+        }
+    }
+
+  # kubernetes_namespace.karpenter will be created
+  + resource "kubernetes_namespace" "karpenter" {
+      + id                               = (known after apply)
+      + wait_for_default_service_account = false
+
+      + metadata {
+          + generation       = (known after apply)
+          + name             = "karpenter"
+          + resource_version = (known after apply)
+          + uid              = (known after apply)
+        }
+    }
+
+  # kubernetes_namespace.metrics will be created
+  + resource "kubernetes_namespace" "metrics" {
+      + id                               = (known after apply)
+      + wait_for_default_service_account = false
+
+      + metadata {
+          + generation       = (known after apply)
+          + name             = "metrics"
+          + resource_version = (known after apply)
+          + uid              = (known after apply)
+        }
+    }
+
+  # kubernetes_namespace.support will be created
+  + resource "kubernetes_namespace" "support" {
+      + id                               = (known after apply)
+      + wait_for_default_service_account = false
+
+      + metadata {
+          + generation       = (known after apply)
+          + name             = "support"
+          + resource_version = (known after apply)
+          + uid              = (known after apply)
+        }
+    }
+
+  # module.eks.aws_iam_role.this[0] will be updated in-place
+  ~ resource "aws_iam_role" "this" {
+        id                    = "vdms-prod-v1-2C4xGPdd-cluster-20240319230813351500000006"
+        name                  = "vdms-prod-v1-2C4xGPdd-cluster-20240319230813351500000006"
+        tags                  = {
+            "Environment"            = "prod"
+            "Managed by"             = "Terraform"
+            "Owner"                  = "Credence DevSecOps"
+            "Used by"                = "vdms-prod-v1-2C4xGPdd"
+            "karpenter.sh/discovery" = "vdms-prod-v1-2C4xGPdd"
+        }
+        # (10 unchanged attributes hidden)
+
+      - inline_policy {
+          - name   = "karpenter-policy-1-vdms-prod-v1-2C4xGPdd" -> null
+          - policy = jsonencode(
+                {
+                  - Statement = [
+                      - {
+                          - Action   = [
+                              - "iam:PassRole",
+                              - "ec2:CreateLaunchTemplate",
+                              - "ec2:CreateFleet",
+                              - "ec2:CreateTags",
+                              - "ec2:DescribeAvailabilityZones",
+                              - "ec2:DescribeImages",
+                              - "ec2:DescribeInstances",
+                              - "ec2:DescribeInstanceTypes",
+                              - "ec2:DescribeInstanceTypeOfferings",
+                              - "ec2:DescribeLaunchTemplates",
+                              - "ec2:DescribeSpotPriceHistory",
+                              - "ec2:DescribeSecurityGroups",
+                              - "ec2:DescribeSubnets",
+                              - "ec2:DeleteLaunchTemplate",
+                              - "ec2:RunInstances",
+                              - "ec2:TerminateInstances",
+                              - "pricing:GetProducts",
+                              - "ssm:GetParameter",
+                              - "logs:*",
+                            ]
+                          - Effect   = "Allow"
+                          - Resource = "*"
+                          - Sid      = "Karpenter"
+                        },
+                      - {
+                          - Action    = "ec2:TerminateInstances"
+                          - Condition = {
+                              - StringLike = {
+                                  - "ec2:ResourceTag/Name" = "*karpenter*"
+                                }
+                            }
+                          - Effect    = "Allow"
+                          - Resource  = "*"
+                          - Sid       = "ConditionalEC2Termination"
+                        },
+                    ]
+                  - Version   = "2012-10-17"
+                }
+            ) -> null
+        }
+
+        # (1 unchanged block hidden)
+    }
+
+  # module.eks.module.self_managed_node_group["v1-sm1"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws-us-gov:policy/AmazonEC2ContainerRegistryReadOnly"]will be created
+  + resource "aws_iam_role_policy_attachment" "this" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws-us-gov:iam::aws-us-gov:policy/AmazonEC2ContainerRegistryReadOnly"
+      + role       = "v1-sm1-node-group-20240319230813455500000007"
+    }
+
+  # module.eks.module.self_managed_node_group["v1-sm1"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws-us-gov:policy/AmazonEKS_CNI_Policy"] will be created
+  + resource "aws_iam_role_policy_attachment" "this" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws-us-gov:iam::aws-us-gov:policy/AmazonEKS_CNI_Policy"
+      + role       = "v1-sm1-node-group-20240319230813455500000007"
+    }
+
+  # module.eks.module.self_managed_node_group["v1-sm1"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws-us-gov:policy/AmazonS3ReadOnlyAccess"] will be created
+  + resource "aws_iam_role_policy_attachment" "this" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws-us-gov:iam::aws-us-gov:policy/AmazonS3ReadOnlyAccess"
+      + role       = "v1-sm1-node-group-20240319230813455500000007"
+    }
+
+  # module.eks.module.self_managed_node_group["v1-sm1"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws-us-gov:policy/AmazonSSMManagedInstanceCore"] will be created
+  + resource "aws_iam_role_policy_attachment" "this" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws-us-gov:iam::aws-us-gov:policy/AmazonSSMManagedInstanceCore"
+      + role       = "v1-sm1-node-group-20240319230813455500000007"
+    }
+
+  # module.eks.module.self_managed_node_group["v1-sm1"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws:policy/AmazonS3ReadOnlyAccess"] will be destroyed
+  # (because key ["arn:aws-us-gov:iam::aws:policy/AmazonS3ReadOnlyAccess"] is not in for_each map)
+  - resource "aws_iam_role_policy_attachment" "this" {
+      - id         = "v1-sm1-node-group-20240319230813455500000007-20240320014605905000000003" -> null
+      - policy_arn = "arn:aws-us-gov:iam::aws:policy/AmazonS3ReadOnlyAccess" -> null
+      - role       = "v1-sm1-node-group-20240319230813455500000007" -> null
+    }
+
+  # module.eks.module.self_managed_node_group["v1-sm1"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws:policy/AmazonSSMManagedInstanceCore"] will be destroyed
+  # (because key ["arn:aws-us-gov:iam::aws:policy/AmazonSSMManagedInstanceCore"] is not in for_each map)
+  - resource "aws_iam_role_policy_attachment" "this" {
+      - id         = "v1-sm1-node-group-20240319230813455500000007-20240320014605223800000002" -> null
+      - policy_arn = "arn:aws-us-gov:iam::aws:policy/AmazonSSMManagedInstanceCore" -> null
+      - role       = "v1-sm1-node-group-20240319230813455500000007" -> null
+    }
+
+  # module.eks.module.self_managed_node_group["v1-sm2"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws-us-gov:policy/AmazonEC2ContainerRegistryReadOnly"]will be created
+  + resource "aws_iam_role_policy_attachment" "this" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws-us-gov:iam::aws-us-gov:policy/AmazonEC2ContainerRegistryReadOnly"
+      + role       = "v1-sm2-node-group-20240319230814121000000008"
+    }
+
+  # module.eks.module.self_managed_node_group["v1-sm2"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws-us-gov:policy/AmazonEKS_CNI_Policy"] will be created
+  + resource "aws_iam_role_policy_attachment" "this" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws-us-gov:iam::aws-us-gov:policy/AmazonEKS_CNI_Policy"
+      + role       = "v1-sm2-node-group-20240319230814121000000008"
+    }
+
+  # module.eks.module.self_managed_node_group["v1-sm2"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws-us-gov:policy/AmazonS3ReadOnlyAccess"] will be created
+  + resource "aws_iam_role_policy_attachment" "this" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws-us-gov:iam::aws-us-gov:policy/AmazonS3ReadOnlyAccess"
+      + role       = "v1-sm2-node-group-20240319230814121000000008"
+    }
+
+  # module.eks.module.self_managed_node_group["v1-sm2"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws-us-gov:policy/AmazonSSMManagedInstanceCore"] will be created
+  + resource "aws_iam_role_policy_attachment" "this" {
+      + id         = (known after apply)
+      + policy_arn = "arn:aws-us-gov:iam::aws-us-gov:policy/AmazonSSMManagedInstanceCore"
+      + role       = "v1-sm2-node-group-20240319230814121000000008"
+    }
+
+  # module.eks.module.self_managed_node_group["v1-sm2"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws:policy/AmazonS3ReadOnlyAccess"] will be destroyed
+  # (because key ["arn:aws-us-gov:iam::aws:policy/AmazonS3ReadOnlyAccess"] is not in for_each map)
+  - resource "aws_iam_role_policy_attachment" "this" {
+      - id         = "v1-sm2-node-group-20240319230814121000000008-20240320014604530200000001" -> null
+      - policy_arn = "arn:aws-us-gov:iam::aws:policy/AmazonS3ReadOnlyAccess" -> null
+      - role       = "v1-sm2-node-group-20240319230814121000000008" -> null
+    }
+
+  # module.eks.module.self_managed_node_group["v1-sm2"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws:policy/AmazonSSMManagedInstanceCore"] will be destroyed
+  # (because key ["arn:aws-us-gov:iam::aws:policy/AmazonSSMManagedInstanceCore"] is not in for_each map)
+  - resource "aws_iam_role_policy_attachment" "this" {
+      - id         = "v1-sm2-node-group-20240319230814121000000008-20240320014606603800000004" -> null
+      - policy_arn = "arn:aws-us-gov:iam::aws:policy/AmazonSSMManagedInstanceCore" -> null
+      - role       = "v1-sm2-node-group-20240319230814121000000008" -> null
+    }
+
+Plan: 29 to add, 1 to change, 4 to destroy.
+
+Do you want to perform these actions?
+  Terraform will perform the actions described above.
+  Only 'yes' will be accepted to approve.
+
+  Enter a value: yes
+
+kubernetes_namespace.dev: Creating...
+kubernetes_namespace.feature-branches: Creating...
+kubernetes_namespace.karpenter: Creating...
+kubernetes_namespace.amazon-cloudwatch: Creating...
+kubernetes_namespace.support: Creating...
+kubernetes_namespace.metrics: Creating...
+kubernetes_namespace.jenkins: Creating...
+kubernetes_namespace.ingress-nginx: Creating...
+module.eks.module.self_managed_node_group["v1-sm2"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws-us-gov:policy/AmazonEC2ContainerRegistryReadOnly"]: Creating...
+module.eks.aws_iam_role.this[0]: Modifying... [id=vdms-prod-v1-2C4xGPdd-cluster-20240319230813351500000006]
+module.eks.module.self_managed_node_group["v1-sm1"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws-us-gov:policy/AmazonSSMManagedInstanceCore"]: Creating...
+module.eks.module.self_managed_node_group["v1-sm2"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws-us-gov:policy/AmazonS3ReadOnlyAccess"]: Creating...
+module.eks.module.self_managed_node_group["v1-sm2"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws-us-gov:policy/AmazonEKS_CNI_Policy"]: Creating...
+module.eks.module.self_managed_node_group["v1-sm1"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws-us-gov:policy/AmazonEC2ContainerRegistryReadOnly"]: Creating...
+module.eks.module.self_managed_node_group["v1-sm1"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws-us-gov:policy/AmazonEKS_CNI_Policy"]: Creating...
+module.eks.module.self_managed_node_group["v1-sm2"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws-us-gov:policy/AmazonSSMManagedInstanceCore"]: Creating...
+module.eks.aws_iam_role.this[0]: Modifications complete after 2s [id=vdms-prod-v1-2C4xGPdd-cluster-20240319230813351500000006]
+module.eks.module.self_managed_node_group["v1-sm1"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws-us-gov:policy/AmazonS3ReadOnlyAccess"]: Creating...
+aws_iam_role_policy_attachment.karpenter_role_attach: Creating...
+aws_iam_role_policy_attachment.karpenter_role_attach_4: Creating...
+aws_iam_role_policy_attachment.karpenter_role_attach: Creation complete after 1s [id=karpenter-controller-vdms-prod-v1-20240320142517224000000001]
+aws_iam_role_policy_attachment.karpenter_role_attach_2: Creating...
+aws_iam_role_policy_attachment.karpenter_role_attach_4: Creation complete after 1s [id=karpenter-controller-vdms-prod-v1-20240320142517321500000002]
+aws_iam_role_policy_attachment.karpenter_role_attach_3: Creating...
+aws_iam_role_policy_attachment.karpenter_role_attach_2: Creation complete after 0s [id=karpenter-controller-vdms-prod-v1-20240320142517911500000003]
+aws_iam_role_policy_attachment.karpenter_role_attach_3: Creation complete after 0s [id=karpenter-controller-vdms-prod-v1-20240320142517996900000004]
+kubernetes_namespace.dev: Still creating... [10s elapsed]
+kubernetes_namespace.feature-branches: Still creating... [10s elapsed]
+kubernetes_namespace.amazon-cloudwatch: Still creating... [10s elapsed]
+kubernetes_namespace.metrics: Still creating... [10s elapsed]
+kubernetes_namespace.jenkins: Still creating... [10s elapsed]
+kubernetes_namespace.karpenter: Still creating... [10s elapsed]
+kubernetes_namespace.support: Still creating... [10s elapsed]
+kubernetes_namespace.ingress-nginx: Still creating... [10s elapsed]
+kubernetes_namespace.dev: Still creating... [20s elapsed]
+kubernetes_namespace.feature-branches: Still creating... [20s elapsed]
+kubernetes_namespace.amazon-cloudwatch: Still creating... [20s elapsed]
+kubernetes_namespace.karpenter: Still creating... [20s elapsed]
+kubernetes_namespace.support: Still creating... [20s elapsed]
+kubernetes_namespace.metrics: Still creating... [20s elapsed]
+kubernetes_namespace.jenkins: Still creating... [20s elapsed]
+kubernetes_namespace.ingress-nginx: Still creating... [20s elapsed]
+kubernetes_namespace.feature-branches: Still creating... [30s elapsed]
+kubernetes_namespace.dev: Still creating... [30s elapsed]
+kubernetes_namespace.amazon-cloudwatch: Still creating... [30s elapsed]
+kubernetes_namespace.jenkins: Still creating... [30s elapsed]
+kubernetes_namespace.karpenter: Still creating... [30s elapsed]
+kubernetes_namespace.support: Still creating... [30s elapsed]
+kubernetes_namespace.metrics: Still creating... [30s elapsed]
+kubernetes_namespace.ingress-nginx: Still creating... [30s elapsed]
 ╷
-│ Error: Error attaching policy arn:aws-us-gov:iam::aws-us-gov:policy/CloudWatchAgentServerPolicy to IAM Role vdms-prod-v1-2C4xGPdd-cluster-20240319230813351500000006:InvalidInput: ARN arn:aws-us-gov:iam::aws-us-gov:policy/CloudWatchAgentServerPolicy is not valid.
-│       status code: 400, request id: a066b55a-75c0-43a8-9258-6fd55c204651
+│ Error: Post "https://131F7FB3B0FD36BA8D4958177CECD2AB.gr7.us-gov-west-1.eks.amazonaws.com/api/v1/namespaces": dial tcp 10.22.4.70:443: i/o timeout
 │
-│   with aws_iam_role_policy_attachment.eks_role_attach_2,
-│   on iam-eks.tf line 107, in resource "aws_iam_role_policy_attachment" "eks_role_attach_2":
-│  107: resource "aws_iam_role_policy_attachment" "eks_role_attach_2" {
+│   with kubernetes_namespace.dev,
+│   on namespace.tf line 10, in resource "kubernetes_namespace" "dev":
+│   10: resource "kubernetes_namespace" "dev" {
 │
 ╵
 ╷
-│ Error: Error attaching policy arn:aws-us-gov:iam::aws-us-gov:policy/ElasticLoadBalancingFullAccess to IAM Role vdms-prod-v1-2C4xGPdd-cluster-20240319230813351500000006: InvalidInput: ARN arn:aws-us-gov:iam::aws-us-gov:policy/ElasticLoadBalancingFullAccess is not valid.
-│       status code: 400, request id: e0713219-d370-4a9a-a520-2cbfd0194505
+│ Error: Post "https://131F7FB3B0FD36BA8D4958177CECD2AB.gr7.us-gov-west-1.eks.amazonaws.com/api/v1/namespaces": dial tcp 10.22.4.70:443: i/o timeout
 │
-│   with aws_iam_role_policy_attachment.eks_role_attach_3,
-│   on iam-eks.tf line 112, in resource "aws_iam_role_policy_attachment" "eks_role_attach_3":
-│  112: resource "aws_iam_role_policy_attachment" "eks_role_attach_3" {
+│   with kubernetes_namespace.support,
+│   on namespace.tf line 16, in resource "kubernetes_namespace" "support":
+│   16: resource "kubernetes_namespace" "support" {
 │
 ╵
 ╷
-│ Error: Error attaching policy arn:aws-us-gov:iam::aws-us-gov:policy/AmazonEC2FullAccess to IAM Role vdms-prod-v1-2C4xGPdd-cluster-20240319230813351500000006: InvalidInput: ARN arn:aws-us-gov:iam::aws-us-gov:policy/AmazonEC2FullAccess is not valid.
-│       status code: 400, request id: 886af41c-59a0-4484-b67c-fb67409a83a8
+│ Error: Post "https://131F7FB3B0FD36BA8D4958177CECD2AB.gr7.us-gov-west-1.eks.amazonaws.com/api/v1/namespaces": dial tcp 10.22.4.70:443: i/o timeout
 │
-│   with aws_iam_role_policy_attachment.eks_role_attach_4,
-│   on iam-eks.tf line 117, in resource "aws_iam_role_policy_attachment" "eks_role_attach_4":
-│  117: resource "aws_iam_role_policy_attachment" "eks_role_attach_4" {
+│   with kubernetes_namespace.feature-branches,
+│   on namespace.tf line 22, in resource "kubernetes_namespace" "feature-branches":
+│   22: resource "kubernetes_namespace" "feature-branches" {
 │
 ╵
+╷
+│ Error: Post "https://131F7FB3B0FD36BA8D4958177CECD2AB.gr7.us-gov-west-1.eks.amazonaws.com/api/v1/namespaces": dial tcp 10.22.4.70:443: i/o timeout
+│
+│   with kubernetes_namespace.amazon-cloudwatch,
+│   on namespace.tf line 28, in resource "kubernetes_namespace" "amazon-cloudwatch":
+│   28: resource "kubernetes_namespace" "amazon-cloudwatch" {
+│
+╵
+╷
+│ Error: Post "https://131F7FB3B0FD36BA8D4958177CECD2AB.gr7.us-gov-west-1.eks.amazonaws.com/api/v1/namespaces": dial tcp 10.22.4.70:443: i/o timeout
+│
+│   with kubernetes_namespace.ingress-nginx,
+│   on namespace.tf line 34, in resource "kubernetes_namespace" "ingress-nginx":
+│   34: resource "kubernetes_namespace" "ingress-nginx" {
+│
+╵
+╷
+│ Error: Post "https://131F7FB3B0FD36BA8D4958177CECD2AB.gr7.us-gov-west-1.eks.amazonaws.com/api/v1/namespaces": dial tcp 10.22.4.70:443: i/o timeout
+│
+│   with kubernetes_namespace.jenkins,
+│   on namespace.tf line 40, in resource "kubernetes_namespace" "jenkins":
+│   40: resource "kubernetes_namespace" "jenkins" {
+│
+╵
+╷
+│ Error: Post "https://131F7FB3B0FD36BA8D4958177CECD2AB.gr7.us-gov-west-1.eks.amazonaws.com/api/v1/namespaces": dial tcp 10.22.4.70:443: i/o timeout
+│
+│   with kubernetes_namespace.karpenter,
+│   on namespace.tf line 46, in resource "kubernetes_namespace" "karpenter":
+│   46: resource "kubernetes_namespace" "karpenter" {
+│
+╵
+╷
+│ Error: Post "https://131F7FB3B0FD36BA8D4958177CECD2AB.gr7.us-gov-west-1.eks.amazonaws.com/api/v1/namespaces": dial tcp 10.22.4.70:443: i/o timeout
+│
+│   with kubernetes_namespace.metrics,
+│   on namespace.tf line 52, in resource "kubernetes_namespace" "metrics":
+│   52: resource "kubernetes_namespace" "metrics" {
+│
+╵
+╷
+│ Error: Error attaching policy arn:aws-us-gov:iam::aws-us-gov:policy/AmazonS3ReadOnlyAccess to IAM Role v1-sm2-node-group-20240319230814121000000008: InvalidInput: ARN arn:aws-us-gov:iam::aws-us-gov:policy/AmazonS3ReadOnlyAccess is not valid.
+│       status code: 400, request id: 217d5daa-32fa-459b-94e8-5be30a443db0
+│
+│   with module.eks.module.self_managed_node_group["v1-sm2"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws-us-gov:policy/AmazonS3ReadOnlyAccess"],
+│   on .terraform/modules/eks/modules/self-managed-node-group/main.tf line 542, in resource "aws_iam_role_policy_attachment" "this":
+│  542: resource "aws_iam_role_policy_attachment" "this" {
+│
+╵
+╷
+│ Error: Error attaching policy arn:aws-us-gov:iam::aws-us-gov:policy/AmazonEKS_CNI_Policy to IAM Role v1-sm2-node-group-20240319230814121000000008: InvalidInput: ARN arn:aws-us-gov:iam::aws-us-gov:policy/AmazonEKS_CNI_Policy is not valid.
+│       status code: 400, request id: 8fea6aee-11b3-40d2-8773-bd1a8d585ff9
+│
+│   with module.eks.module.self_managed_node_group["v1-sm2"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws-us-gov:policy/AmazonEKS_CNI_Policy"],
+│   on .terraform/modules/eks/modules/self-managed-node-group/main.tf line 542, in resource "aws_iam_role_policy_attachment" "this":
+│  542: resource "aws_iam_role_policy_attachment" "this" {
+│
+╵
+╷
+│ Error: Error attaching policy arn:aws-us-gov:iam::aws-us-gov:policy/AmazonSSMManagedInstanceCore to IAM Role v1-sm1-node-group-20240319230813455500000007: InvalidInput: ARN arn:aws-us-gov:iam::aws-us-gov:policy/AmazonSSMManagedInstanceCore is not valid.
+│       status code: 400, request id: 8b825c46-2be3-47e0-959a-bc973856f47a
+│
+│   with module.eks.module.self_managed_node_group["v1-sm1"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws-us-gov:policy/AmazonSSMManagedInstanceCore"],
+│   on .terraform/modules/eks/modules/self-managed-node-group/main.tf line 542, in resource "aws_iam_role_policy_attachment" "this":
+│  542: resource "aws_iam_role_policy_attachment" "this" {
+│
+╵
+╷
+│ Error: Error attaching policy arn:aws-us-gov:iam::aws-us-gov:policy/AmazonEKS_CNI_Policy to IAM Role v1-sm1-node-group-20240319230813455500000007: InvalidInput: ARN arn:aws-us-gov:iam::aws-us-gov:policy/AmazonEKS_CNI_Policy is not valid.
+│       status code: 400, request id: 546b16bf-3068-45e2-8999-d17f7ad0d100
+│
+│   with module.eks.module.self_managed_node_group["v1-sm1"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws-us-gov:policy/AmazonEKS_CNI_Policy"],
+│   on .terraform/modules/eks/modules/self-managed-node-group/main.tf line 542, in resource "aws_iam_role_policy_attachment" "this":
+│  542: resource "aws_iam_role_policy_attachment" "this" {
+│
+╵
+╷
+│ Error: Error attaching policy arn:aws-us-gov:iam::aws-us-gov:policy/AmazonEC2ContainerRegistryReadOnly to IAM Role v1-sm1-node-group-20240319230813455500000007: InvalidInput: ARN arn:aws-us-gov:iam::aws-us-gov:policy/AmazonEC2ContainerRegistryReadOnly is not valid.
+│       status code: 400, request id: 8501e564-5259-48b6-b3a4-e0e388ea2924
+│
+│   with module.eks.module.self_managed_node_group["v1-sm1"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws-us-gov:policy/AmazonEC2ContainerRegistryReadOnly"],
+│   on .terraform/modules/eks/modules/self-managed-node-group/main.tf line 542, in resource "aws_iam_role_policy_attachment" "this":
+│  542: resource "aws_iam_role_policy_attachment" "this" {
+│
+╵
+╷
+│ Error: Error attaching policy arn:aws-us-gov:iam::aws-us-gov:policy/AmazonSSMManagedInstanceCore to IAM Role v1-sm2-node-group-20240319230814121000000008: InvalidInput: ARN arn:aws-us-gov:iam::aws-us-gov:policy/AmazonSSMManagedInstanceCore is not valid.
+│       status code: 400, request id: c585cd4c-3134-4c0b-8567-a5312d967d13
+│
+│   with module.eks.module.self_managed_node_group["v1-sm2"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws-us-gov:policy/AmazonSSMManagedInstanceCore"],
+│   on .terraform/modules/eks/modules/self-managed-node-group/main.tf line 542, in resource "aws_iam_role_policy_attachment" "this":
+│  542: resource "aws_iam_role_policy_attachment" "this" {
+│
+╵
+╷
+│ Error: Error attaching policy arn:aws-us-gov:iam::aws-us-gov:policy/AmazonEC2ContainerRegistryReadOnly to IAM Role v1-sm2-node-group-20240319230814121000000008: InvalidInput: ARN arn:aws-us-gov:iam::aws-us-gov:policy/AmazonEC2ContainerRegistryReadOnly is not valid.
+│       status code: 400, request id: 1384b22e-8083-4207-8b2c-164a88822128
+│
+│   with module.eks.module.self_managed_node_group["v1-sm2"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws-us-gov:policy/AmazonEC2ContainerRegistryReadOnly"],
+│   on .terraform/modules/eks/modules/self-managed-node-group/main.tf line 542, in resource "aws_iam_role_policy_attachment" "this":
+│  542: resource "aws_iam_role_policy_attachment" "this" {
+│
+╵
+╷
+│ Error: Error attaching policy arn:aws-us-gov:iam::aws-us-gov:policy/AmazonS3ReadOnlyAccess to IAM Role v1-sm1-node-group-20240319230813455500000007: InvalidInput: ARN arn:aws-us-gov:iam::aws-us-gov:policy/AmazonS3ReadOnlyAccess is not valid.
+│       status code: 400, request id: 4daa4ed4-fcf6-4b7b-be43-628f278abc77
+│
+│   with module.eks.module.self_managed_node_group["v1-sm1"].aws_iam_role_policy_attachment.this["arn:aws-us-gov:iam::aws-us-gov:policy/AmazonS3ReadOnlyAccess"],
+│   on .terraform/modules/eks/modules/self-managed-node-group/main.tf line 542, in resource "aws_iam_role_policy_attachment" "this":
+│  542: resource "aws_iam_role_policy_attachment" "this" {
+│
+╵
+[hilo@ip-10-22-4-214 vdms_eks]$
