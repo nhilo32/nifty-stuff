@@ -1,26 +1,19 @@
-aws_iam_role_policy_attachment.karpenter_role_attach: Still creating... [2m0s elapsed]
+Plan: 26 to add, 0 to change, 4 to destroy.
 ╷
-│ Error: Error putting IAM role policy aws-lb-policy-vdms-prod-v1: MalformedPolicyDocument: Partition "aws" is not valid for resource "arn:aws:ec2:*:*:security-group/*".
-│       status code: 400, request id: 3c09eaaf-75f0-44dc-a28e-8e6f74a266ab
+│ Error: error reading IAM Role Policy (efs-csi-controller-vdms-prod-v1:efs-csi-vdms-prod-v1): RequestError: send request failed
+│ caused by: Post "https://iam.us-gov.amazonaws.com/": read tcp 10.22.4.214:36810->52.46.229.74:443: read: connection reset by peer
 │
-│   with aws_iam_role_policy.aws_lb_controller_1,
-│   on iam-aws-loadbalancer.tf line 18, in resource "aws_iam_role_policy" "aws_lb_controller_1":
-│   18: resource "aws_iam_role_policy" "aws_lb_controller_1" {
+│   with aws_iam_role_policy.aws_efs_csi_controller,
+│   on iam-efs-csi-controller.tf line 18, in resource "aws_iam_role_policy" "aws_efs_csi_controller":
+│   18: resource "aws_iam_role_policy" "aws_efs_csi_controller" {
 │
 ╵
 ╷
-│ Error: error reading IAM Role Managed Policy Attachment (vdms-prod-v1-2C4xGPdd-cluster-20240319230813351500000006:arn:aws:iam::aws:policy/CloudWatchAgentServerPolicy): couldn't find resource
+│ Error: reading managed policies for IAM role aws-lb-controller-vdms-prod-v1, error: RequestError: send request failed
+│ caused by: Post "https://iam.us-gov.amazonaws.com/": read tcp 10.22.4.214:36792->52.46.229.74:443: read: connection reset by peer
 │
-│   with aws_iam_role_policy_attachment.eks_role_attach_2,
-│   on iam-eks.tf line 107, in resource "aws_iam_role_policy_attachment" "eks_role_attach_2":
-│  107: resource "aws_iam_role_policy_attachment" "eks_role_attach_2" {
-│
-╵
-╷
-│ Error: error reading IAM Role Managed Policy Attachment (vdms-prod-v1-2C4xGPdd-cluster-20240319230813351500000006:arn:aws:iam::aws:policy/ElasticLoadBalancingFullAccess): couldn't find resource
-│
-│   with aws_iam_role_policy_attachment.eks_role_attach_3,
-│   on iam-eks.tf line 112, in resource "aws_iam_role_policy_attachment" "eks_role_attach_3":
-│  112: resource "aws_iam_role_policy_attachment" "eks_role_attach_3" {
+│   with module.iam_assumable_role_aws_lb.aws_iam_role.this[0],
+│   on .terraform/modules/iam_assumable_role_aws_lb/modules/iam-assumable-role-with-oidc/main.tf line 65, in resource "aws_iam_role" "this":
+│   65: resource "aws_iam_role" "this" {
 │
 ╵
