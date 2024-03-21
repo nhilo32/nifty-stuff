@@ -32,3 +32,21 @@ sleep 1m
 
 aws s3 cp s3://scriptsandtools/id_ecdsa.pub  /home/acas-test2/.ssh/authorized_keys
 chown acas-test2:acas-test2 /home/acas-test2/.ssh/authorized_keys
+
+
+-----------------------------------------
+download: s3://scriptsandtools/acas-test2.tar to ./acas-test2.tar
+home/acas-test2/
+home/acas-test2/.ssh/
+home/acas-test2/.ssh/new_id_rsa
+home/acas-test2/.ssh/new_id_rsa.pub
+home/acas-test2/.ssh/id_rsa
+home/acas-test2/.ssh/authorized_keys
+home/acas-test2/.ssh/known_hosts
+home/acas-test2/.bash_history
+Changing password for user acas-test2.
+passwd: all authentication tokens updated successfully.
+Locking password for user acas-test2.
+passwd: Success
+download: s3://scriptsandtools/10_acas to ../etc/sudoers.d/10_acas
+-----------------------------------------
