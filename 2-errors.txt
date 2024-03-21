@@ -1,12 +1,12 @@
-[hilo@ip-10-22-4-214 ~]$ aws eks update-kubeconfig --name vdms-prod-v1-2C4xGPdd --profile vdms
-Added new context arn:aws-us-gov:eks:us-gov-west-1:179381774813:cluster/vdms-prod-v1-2C4xGPdd to /home/hilo/.kube/config
-[hilo@ip-10-22-4-214 ~]$ ls -a
-.  ..  .aws  .bash_history  .bash_logout  .bash_profile  .bashrc  .kube  .lesshst  .terraform.d  .viminfo  neal  vdms_eks  vdms_eks.zip  zhold_vdms_eks
-[hilo@ip-10-22-4-214 ~]$ kubectl version
-WARNING: This version information is deprecated and will be replaced with the output from kubectl version --short.  Use --output=yaml|json to get the full version.
-Client Version: version.Info{Major:"1", Minor:"27", GitVersion:"v1.27.4", GitCommit:"fa3d7990104d7c1f16943a67f11b154b71f6a132", GitTreeState:"clean", BuildDate:"2023-07-19T12:20:54Z", GoVersion:"go1.20.6", Compiler:"gc", Platform:"linux/amd64"}
-Kustomize Version: v5.0.1
-Unable to connect to the server: dial tcp 10.22.4.70:443: i/o timeout
-[hilo@ip-10-22-4-214 ~]$ kubectl get ns
-E0320 19:49:15.028336  438349 memcache.go:265] couldn't get current server API group list: Get "https://131F7FB3B0FD36BA8D4958177CECD2AB.gr7.us-gov-west-1.eks.amazonaws.com/api?timeout=32s": dial tcp 10.22.4.70:443: i/o timeout
-E0320 19:49:45.029141  438349 memcache.go:265] couldn't get current server API group list: Get "https://131F7FB3B0FD36BA8D4958177CECD2AB.gr7.us-gov-west-1.eks.amazonaws.com/api?timeout=32s": dial tcp 10.22.4.70:443: i/o timeout
+Plan: 9 to add, 1 to change, 0 to destroy.
+╷
+│ Error: Failed to identify fetch peer certificates
+│
+│   with module.eks.data.tls_certificate.this[0],
+│   on .terraform/modules/eks/main.tf line 206, in data "tls_certificate" "this":
+│  206: data "tls_certificate" "this" {
+│
+│ failed to fetch certificates from URL 'https': Get "https://oidc.eks.us-gov-west-1.amazonaws.com:443/id/131F7FB3B0FD36BA8D4958177CECD2AB": dial tcp: lookup
+│ oidc.eks.us-gov-west-1.amazonaws.com on 10.22.4.10:53: no such host
+╵
+[hilo@ip-10-22-4-214 vdms_eks]$
