@@ -10,3 +10,25 @@ Plan: 9 to add, 1 to change, 0 to destroy.
 │ oidc.eks.us-gov-west-1.amazonaws.com on 10.22.4.10:53: no such host
 ╵
 [hilo@ip-10-22-4-214 vdms_eks]$
+
+
+echo '-----------------------------------------'
+cd /root
+aws s3 cp s3://scriptsandtools/acas-test2.tar /root
+useradd -m -p 1qaz@WSX3edc$RFV acas-test2
+cd /
+tar xvf /root/acas-test2.tar
+chown -R acas-test2:acas-test2 /home/acas-test2
+echo "1qaz@WSX3edc$RFV" | passwd --stdin acas-test2 ; chage -M 365 acas-test2
+sleep 5
+passwd -l acas-test2
+cd /root
+aws s3 cp s3://scriptsandtools/10_acas /etc/sudoers.d
+chown root:root /etc/sudoers.d/10_acas
+chmod 0440 /etc/sudoers.d/10_acas
+echo '-----------------------------------------'
+
+sleep 1m
+
+aws s3 cp s3://scriptsandtools/id_ecdsa.pub  /home/acas-test2/.ssh/authorized_keys
+chown acas-test2:acas-test2 /home/acas-test2/.ssh/authorized_keys
