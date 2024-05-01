@@ -1,3 +1,30 @@
 daasaiml-terraform-lock
 arn:aws-us-gov:dynamodb:us-gov-west-1:000361574760:table/daasaiml-terraform-lock
 arn:aws-us-gov:s3:::daasaiml-terraform-state
+
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Effect": "Allow",
+            "Action": [
+                "s3:GetObject",
+                "s3:ListBucket"
+            ],
+            "Resource": [
+                "arn:aws-us-gov:s3:::daasaiml-terraform-state",
+                "arn:aws-us-gov:s3:::daasaiml-terraform-state/*"
+            ]
+        },
+        {
+            "Effect": "Allow",
+            "Action": [
+                "dynamodb:GetItem",
+                "dynamodb:Query",
+                "dynamodb:Scan",
+                "dynamodb:DescribeTable"
+            ],
+            "Resource": "arn:aws-us-gov:dynamodb:us-gov-west-1:000361574760:table/daasaiml-terraform-lock"
+        }
+    ]
+}
