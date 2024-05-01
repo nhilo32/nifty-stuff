@@ -101,3 +101,114 @@ resource "aws_iam_role_policy" "devops_runner_policy_part2" {
    }
  )
 }
+
+resource "aws_iam_role_policy" "devops_runner_policy_part3" {
+    name = "daas-aiml-runner-policy-part2"
+    role = aws_iam_role.devops_runner.id
+  
+    policy = jsonencode(
+    provider "aws" {
+        region = "us-gov-west-1"
+      }
+      
+      
+      resource "aws_iam_role" "devops_runner" {
+        name = "Platform-DAAS-AIML-GitLab-Runner-A"
+      
+      
+        assume_role_policy = jsonencode(
+      {
+          "Version": "2012-10-17",
+          "Statement": [
+              {
+                  "Sid": "",
+                  "Effect": "Allow",
+                  "Principal": {
+                      "Federated": "arn:aws-us-gov:iam::000361574760:oidc-provider/oidc.eks.us-gov-west-1.amazonaws.com/id/A5CFF8CB2FF8EC9347E14C47685EF36F"
+                  },
+                  "Action": "sts:AssumeRoleWithWebIdentity",
+                  "Condition": {
+                      "StringEquals": {
+                          "oidc.eks.us-gov-west-1.amazonaws.com/id/A5CFF8CB2FF8EC9347E14C47685EF36F:sub": "system:serviceaccount:daas-aiml:devops-runner-gitlab-runner"
+                      }
+                  }
+              }
+          ]
+      }
+        )
+        tags = {
+          Environment = "production"
+          ManagedBy   = "Gitlab"
+          CreatedBy   = "Terraform"
+        }
+      }
+      
+      resource "aws_iam_role_policy" "devops_runner_policy_part1" {
+        name = "daas-aiml-runner-policy-part1"
+        role = aws_iam_role.devops_runner.id
+      
+        policy = jsonencode(
+      {
+          "Version": "2012-10-17",
+          "Statement": [
+              {
+                  "Sid": "VisualEditor0",
+                  "Effect": "Allow",
+                  "Action": [
+                      "s3:*"
+                  ],
+                  "Resource": [
+                      "arn:aws-us-gov:s3:::daas*",
+                      "arn:aws-us-gov:s3:::daas*/*"
+                  ]
+              }
+          ]
+        }
+       )
+      }
+      
+      resource "aws_iam_role_policy" "devops_runner_policy_part2" {
+        name = "daas-aiml-runner-policy-part2"
+        role = aws_iam_role.devops_runner.id
+      
+        policy = jsonencode(
+      {
+          "Version": "2012-10-17",
+          "Statement": [
+              {
+                  "Sid": "VisualEditor0",
+                  "Effect": "Allow",
+                  "Action": [
+                      "s3:*"
+                  ],
+                  "Resource": [
+                      "arn:aws-us-gov:s3:::aws2coe-security-tooling*",
+                      "arn:aws-us-gov:s3:::aws2coe-security-tooling/*"
+                  ]
+              },
+              {
+                  "Sid": "ECR",
+                  "Effect": "Allow",
+                  "Action": [
+                      "ecr:*"
+                  ],
+                  "Resource": [
+                      "*"
+                  ]
+              },
+              {
+                  "Sid": "Statement1",
+                  "Effect": "Allow",
+                  "Action": [
+                      "sts:AssumeRole"
+                  ],
+                  "Resource": [
+                      "*"
+                  ]
+              }
+           ]
+         }
+       )
+      }
+   )
+  }
