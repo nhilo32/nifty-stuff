@@ -1,2 +1,3 @@
 daasaiml-terraform-lock
+arn:aws-us-gov:dynamodb:us-gov-west-1:000361574760:table/daasaiml-terraform-lock
 arn:aws-us-gov:s3:::daasaiml-terraform-state
