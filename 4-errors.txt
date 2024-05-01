@@ -1,361 +1,103 @@
 provider "aws" {
-  region = var.region
-  profile = var.user_aws_profile
+  region = "us-gov-west-1"
 }
 
-data "aws_eks_cluster" "cluster" {
-  name = module.eks.cluster_id
-}
 
-data "aws_eks_cluster_auth" "cluster" {
-  name = module.eks.cluster_id
-}
+resource "aws_iam_role" "devops_runner" {
+  name = "Platform-DAAS-AIML-GitLab-Runner-A"
 
-provider "kubernetes" {
-  host                   = data.aws_eks_cluster.cluster.endpoint
-  cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
-  token                  = data.aws_eks_cluster_auth.cluster.token
-}
 
-provider "helm" {
-  plugins_path = "/root/.local/share/helm/plugins/"
-  kubernetes {
-    host                   = data.aws_eks_cluster.cluster.endpoint
-    cluster_ca_certificate = base64decode(data.aws_eks_cluster.cluster.certificate_authority.0.data)
-    token                  = data.aws_eks_cluster_auth.cluster.token
+  assume_role_policy = jsonencode(
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "",
+            "Effect": "Allow",
+            "Principal": {
+                "Federated": "arn:aws-us-gov:iam::000361574760:oidc-provider/oidc.eks.us-gov-west-1.amazonaws.com/id/A5CFF8CB2FF8EC9347E14C47685EF36F"
+            },
+            "Action": "sts:AssumeRoleWithWebIdentity",
+            "Condition": {
+                "StringEquals": {
+                    "oidc.eks.us-gov-west-1.amazonaws.com/id/A5CFF8CB2FF8EC9347E14C47685EF36F:sub": "system:serviceaccount:daas-aiml:devops-runner-gitlab-runner"
+                }
+            }
+        }
+    ]
+}
+  )
+  tags = {
+    Environment = "production"
+    ManagedBy   = "Gitlab"
+    CreatedBy   = "Terraform"
   }
 }
 
-data "aws_availability_zones" "available" {
-}
+resource "aws_iam_role_policy" "devops_runner_policy_part1" {
+  name = "daas-aiml-runner-policy-part1"
+  role = aws_iam_role.devops_runner.id
 
-locals {
-  cluster_name = "${var.cluster_name}-${random_string.suffix.result}"
-}
-
-resource "random_string" "suffix" {
-  length  = 8
-  special = false
-}
-
-module "eks" {
-  source                          = "registry.terraform.io/terraform-aws-modules/eks/aws"
-  version                         = "18.31.2"
-  cluster_name                    = local.cluster_name
-  cluster_version                 = var.cluster_version
-  cluster_endpoint_private_access = true
-  cluster_endpoint_public_access  = true
-  enable_irsa                     = true
-  vpc_id                          = var.eks_vpc_id
-  subnet_ids                      = var.eks_subnet_ids
-
-  cluster_enabled_log_types = ["api", "audit", "authenticator", "controllerManager", "scheduler"]
-  cluster_endpoint_public_access_cidrs= var.cluster_endpoint_public_access_cidrs_var
-
-  cluster_encryption_config = [{
-    provider_key_arn = aws_kms_key.eks.arn
-    resources        = ["secrets"]
-  }]
-
-  tags                            = {
-    Owner        = "Credence DevSecOps"
-    Environment  = var.environment
-    "Managed by" = "Terraform"
-    "Used by"    = local.cluster_name
-    "karpenter.sh/discovery" = local.cluster_name
-  }
-
-  # Extend node-to-node security group rules
-  node_security_group_additional_rules = {
-    ingress_self_all = {
-      description = "Node to node all ports/protocols"
-      protocol    = "-1"
-      from_port   = 0
-      to_port     = 0
-      type        = "ingress"
-      self        = true
-    }
-  }
-  self_managed_node_group_defaults = {
-    ami_type  = "AL2_x86_64"
-    update_launch_template_default_version = true
-    iam_role_additional_policies = [
-      "arn:aws-us-gov:iam::aws:policy/AmazonSSMManagedInstanceCore",
-      "arn:aws-us-gov:iam::aws:policy/AmazonS3ReadOnlyAccess",
-      "arn:aws-us-gov:iam::aws:policy/AmazonEKS_CNI_Policy",
-      "arn:aws-us-gov:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
+  policy = jsonencode(
+{
+    "Version": "2012-10-17",
+    "Statement": [
+        {
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "s3:*"
+            ],
+            "Resource": [
+                "arn:aws-us-gov:s3:::daas*",
+                "arn:aws-us-gov:s3:::daas*/*"
+            ]
+        }
     ]
   }
+ )
+}
 
-  self_managed_node_groups         = {
+resource "aws_iam_role_policy" "devops_runner_policy_part2" {
+  name = "daas-aiml-runner-policy-part2"
+  role = aws_iam_role.devops_runner.id
 
-  (var.group_name_1) = {
-
-      name                          = var.group_name_1
-      instance_type                 = "m5.2xlarge"
-      enable_bootstrap_user_data    = true
-      bootstrap_extra_args          =  "--dns-cluster-ip $K8S_CLUSTER_DNS_IP"
-      pre_bootstrap_user_data       = "K8S_CLUSTER_DNS_IP=172.20.0.10\n"
-      post_bootstrap_user_data =  var.post_bootstrap_user_data_var
-
-      min_size     = 1
-      desired_size = 1
-      max_size     = 30
-      metadata_options = {
-        http_endpoint               = "enabled"
-        http_tokens                 = "optional"
-        http_put_response_hop_limit = 2
-        instance_metadata_tags      = "disabled"
-      }
-      block_device_mappings = {
-        xvda = {
-          device_name = "/dev/xvda"
-          ebs = {
-            delete_on_termination = true
-            encrypted             = true
-            volume_size           = 100
-            volume_type           = "gp3"
-          }
-        }
-      }
-      capacity_type = "ON_DEMAND"
-      additional_tags               = {
-        "k8s.io/cluster-autoscaler/${local.cluster_name}" = "owned",
-        "k8s.io/cluster-autoscaler/enabled"               = "true"
-      }
-      security_group_rules = [
+  policy = jsonencode(
+{
+    "Version": "2012-10-17",
+    "Statement": [
         {
-          from_port   = 0
-          to_port     = 65535
-          protocol    = "tcp"
-          description = "EKS VPC Ingress Access"
-          cidr_blocks = ["${var.eks_vpc_cidr}"]
-          type        = "ingress"
+            "Sid": "VisualEditor0",
+            "Effect": "Allow",
+            "Action": [
+                "s3:*"
+            ],
+            "Resource": [
+                "arn:aws-us-gov:s3:::aws2coe-security-tooling*",
+                "arn:aws-us-gov:s3:::aws2coe-security-tooling/*"
+            ]
         },
         {
-          from_port   = 0
-          to_port     = 65535
-          protocol    = "-1"
-          description = "EKS VPC ALL Ingress Access"
-          cidr_blocks = ["0.0.0.0/0"]
-          type        = "egress"
-        }
-      ]
-    }
-    (var.group_name_2) = {
-      name                          = var.group_name_2
-      instance_type                 = "m5.4xlarge"
-      override_instance_types       = ["m5.xlarge", "m5.2xlarge"]
-      bootstrap_extra_args          =  "--dns-cluster-ip $K8S_CLUSTER_DNS_IP"
-      pre_bootstrap_user_data       = "K8S_CLUSTER_DNS_IP=172.20.0.10\n"
-      post_bootstrap_user_data = var.post_bootstrap_user_data_var
-      min_size                  = 0
-      desired_size              = 0
-      max_size                  = 6
-      metadata_options = {
-        http_endpoint               = "enabled"
-        http_tokens                 = "optional"
-        http_put_response_hop_limit = 2
-        instance_metadata_tags      = "disabled"
-      }
-      block_device_mappings = {
-        xvda = {
-          device_name = "/dev/xvda"
-          ebs = {
-            delete_on_termination = true
-            encrypted             = true
-            volume_size           = 100
-            volume_type           = "gp3"
-          }
-        }
-      }
-      capacity_type = "ON_DEMAND"
-      additional_tags               = {
-        "k8s.io/cluster-autoscaler/${local.cluster_name}" = "owned",
-        "k8s.io/cluster-autoscaler/enabled"               = "true"
-      }
-      security_group_rules = [
-        {
-          from_port   = 0
-          to_port     = 65535
-          protocol    = "tcp"
-          description = "EKS VPC Ingress Access"
-          cidr_blocks = ["${var.eks_vpc_cidr}"]
-          type        = "ingress"
+            "Sid": "ECR",
+            "Effect": "Allow",
+            "Action": [
+                "ecr:*"
+            ],
+            "Resource": [
+                "*"
+            ]
         },
         {
-          from_port   = 0
-          to_port     = 65535
-          protocol    = "-1"
-          description = "EKS VPC ALL Ingress Access"
-          cidr_blocks = ["0.0.0.0/0"]
-          type        = "egress"
+            "Sid": "Statement1",
+            "Effect": "Allow",
+            "Action": [
+                "sts:AssumeRole"
+            ],
+            "Resource": [
+                "*"
+            ]
         }
-      ]
-    }
-  }
-}
-
-resource "aws_kms_key" "eks" {
-  description             = "EKS Cluster ${local.cluster_name} secrets encryption"
-  deletion_window_in_days = 7
-  enable_key_rotation     = true
-
-  tags = {
-    Name             = "${local.cluster_name}-secrets-key"
-    Owner        = "Credence DevSecOps"
-    Environment  = var.environment
-    "Managed by" = "Terraform"
-    "Used by"    = local.cluster_name
-  }
-}
-
-resource "kubernetes_config_map" "aws-auth" {
-  data = {
-    "mapRoles" = <<EOT
-- groups:
-  - system:bootstrappers
-  - system:nodes
-  rolearn: ${module.eks.self_managed_node_groups[var.group_name_1].iam_role_arn}
-  username: system:node:{{EC2PrivateDNSName}}
-- groups:
-  - system:bootstrappers
-  - system:nodes
-  rolearn: ${module.eks.self_managed_node_groups[var.group_name_2].iam_role_arn}
-  username: system:node:{{EC2PrivateDNSName}}
-EOT
-    "mapUsers" = jsonencode(var.mapUsers)
-
-}
-
-  metadata {
-    name      = "aws-auth"
-    namespace = "kube-system"
-  }
-
-}
-
-module "karpenter_node_sg" {
-  source = "terraform-aws-modules/security-group/aws"
-
-  name        = "${local.cluster_name}-karpenter-node-sg"
-  description = "Security group for karpenter node communication within VPC"
-  vpc_id      = var.eks_vpc_id
-
-  ingress_with_cidr_blocks = [
-    {
-      from_port   = 0
-      to_port     = 65535
-      protocol    = "tcp"
-      description = "EKS VPC Ingress Access"
-      cidr_blocks = var.eks_vpc_cidr
-    },
-    {
-      from_port   = 0
-      to_port     = 65535
-      protocol    = "-1"
-      description = "EKS VPC ALL Ingress Access"
-      cidr_blocks = var.eks_vpc_cidr
-    }
-  ]
-
-  egress_with_cidr_blocks = [
-    {
-      from_port   = 0
-      to_port     = 65535
-      protocol    = "tcp"
-      description = "Full Egress Access"
-      cidr_blocks = "0.0.0.0/0"
-    },
-    {
-      from_port   = 0
-      to_port     = 65535
-      protocol    = "-1"
-      description = "Full Egress Access"
-      cidr_blocks = "0.0.0.0/0"
-    }
-  ]
-  tags = {
-    Owner        = "Credence DevSecOps"
-    Environment  = var.environment
-    "Managed by" = "Terraform"
-    "Used by"    = local.cluster_name
-#    "karpenter.sh/discovery" = local.cluster_name
-  }
-}
-
-resource "null_resource" "kubectl_aws_auth_creation" {
-  provisioner "local-exec" {
-    command = "echo ${local.cluster_name} > cluster_name.txt"
-  }
-  triggers = {
-    order = module.eks.cluster_id
-  }
-}
-
-resource "aws_ssm_parameter" "eks_vpc_id" {
-  name  = "/Terraform/EKS/${local.cluster_name}/vpc_id"
-  type  = "String"
-  value = var.eks_vpc_id
-  tags = {
-    Owner        = "Credence DevSecOps"
-    Environment  = var.environment
-    "Managed by" = "Terraform"
-    "Used by"    = local.cluster_name
-  }
-}
-
-resource "aws_ssm_parameter" "eks_subnet_ids" {
-  name  = "/Terraform/EKS/${local.cluster_name}/vpc_subnet_ids"
-  type  = "String"
-  value = join(", ",var.eks_subnet_ids)
-  tags = {
-    Owner        = "Credence DevSecOps"
-    Environment  = var.environment
-    "Managed by" = "Terraform"
-    "Used by"    = local.cluster_name
-  }
-}
-
-resource "aws_ssm_parameter" "eks_cluster_version" {
-  name  = "/Terraform/EKS/${local.cluster_name}/cluster_version"
-  type  = "String"
-  value = module.eks.cluster_version
-  tags = {
-    Owner        = "Credence DevSecOps"
-    Environment  = var.environment
-    "Managed by" = "Terraform"
-    "Used by"    = local.cluster_name
-  }
-}
-
-resource "aws_ssm_parameter" "eks_vpc_cidr" {
-  name  = "/Terraform/EKS/${local.cluster_name}/vpc_cidr"
-  type  = "String"
-  value = var.eks_vpc_cidr
-  tags = {
-    Owner        = "Credence DevSecOps"
-    Environment  = var.environment
-    "Managed by" = "Terraform"
-    "Used by"    = local.cluster_name
-  }
-}
-resource "aws_ssm_parameter" "eks_node_groups" {
-  name  = "/Terraform/EKS/${local.cluster_name}/autoscaling_groups"
-  type  = "String"
-  value = join(", ",module.eks.self_managed_node_groups_autoscaling_group_names)
-  tags = {
-    Owner        = "Credence DevSecOps"
-    Environment  = var.environment
-    "Managed by" = "Terraform"
-    "Used by"    = local.cluster_name
-  }
-}
-
-variable "image_id" {
-  default = "/aws/service/eks/optimized-ami/1.25/amazon-linux-2/recommended/image_id"
-}
-
-data "aws_ssm_parameter" "latest_eks_ami" {
-  name = var.image_id
+     ]
+   }
+ )
 }
