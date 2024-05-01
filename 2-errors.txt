@@ -1,33 +1,36 @@
-daasaiml-terraform-lock
-arn:aws-us-gov:dynamodb:us-gov-west-1:000361574760:table/daasaiml-terraform-lock
-arn:aws-us-gov:s3:::daasaiml-terraform-state
-
-Failed to create policy daas-aiml-runner-policy-part3-terraform.
-User: arn:aws-us-gov:sts::000361574760:assumed-role/OrganizationAccountAccessRole/neal.daikawa.ctr@dla.mil is not authorized to perform: iam:PutRolePolicy on resource: role Platform-DAAS-AIML-GitLab-Runner-A with an explicit deny in a service control policy
-
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Effect": "Allow",
-            "Action": [
-                "s3:GetObject",
-                "s3:ListBucket"
-            ],
-            "Resource": [
-                "arn:aws-us-gov:s3:::daasaiml-terraform-state",
-                "arn:aws-us-gov:s3:::daasaiml-terraform-state/*"
-            ]
-        },
-        {
-            "Effect": "Allow",
-            "Action": [
-                "dynamodb:GetItem",
-                "dynamodb:Query",
-                "dynamodb:Scan",
-                "dynamodb:DescribeTable"
-            ],
-            "Resource": "arn:aws-us-gov:dynamodb:us-gov-west-1:000361574760:table/daasaiml-terraform-lock"
-        }
-    ]
-}
+Slide 1: Introduction to SQL Injection
+Title: Introduction to SQL Injection
+Content:
+Definition: "SQL Injection is a type of security vulnerability that allows an attacker to interfere with the queries that an application makes to its database."
+Impact Overview: Briefly discuss how SQL Injection can allow attackers to access and manipulate sensitive data, potentially leading to identity theft, loss of data, and a breach of trust.
+Slide 2: History of SQL Injection
+Title: History of SQL Injection
+Content:
+Key Milestones: Outline the discovery and evolution of SQL Injection, perhaps starting from its first major documentation in the late 1990s.
+Notable Examples: Provide a few real-world incidents, such as the 2009 RockYou breach where over 32 million passwords were exposed through SQL Injection.
+Slide 3: How SQL Injection Works
+Title: How SQL Injection Works
+Content:
+Diagram: Include a simple flowchart or diagram showing how SQL code is typically processed in a web application.
+Code Comparison: Show side-by-side examples of vulnerable SQL code versus secure SQL code to highlight common mistakes and best practices.
+Slide 4: Types of SQL Injection Attacks
+Title: Types of SQL Injection Attacks
+Content:
+T-SQL Injection: Explain how attackers manipulate T-SQL specific code to execute illicit commands.
+Blind SQL Injection: Discuss how attackers can infer database information from the behavior of the application despite not seeing data from the database directly.
+Out-of-Band SQL Injection: Explain methods involving data transmission over different protocols to retrieve information.
+Slide 5: Importance of Preventing SQL Injection
+Title: Importance of Preventing SQL Injection
+Content:
+Statistics: Share statistics about the prevalence and impact of SQL Injection on data breaches.
+Costs: Discuss the financial implications for businesses, including potential fines and loss of reputation.
+Slide 6: Mitigation Strategies
+Title: Mitigation Strategies
+Content:
+Prepared Statements: Highlight the importance of using prepared statements with parameterized queries.
+Stored Procedures: Encourage the use of stored procedures to separate data from commands.
+Input Validation and Sanitization: Stress the need for validating and sanitizing all user inputs to prevent malicious data from being processed.
+Slide 7: Q&A
+Title: Q&A
+Content:
+Open Floor: Encourage attendees to ask questions or seek clarification on the topics discussed to enhance understanding and engagement.
