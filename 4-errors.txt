@@ -212,7 +212,7 @@ resource "aws_iam_role_policy" "devops_runner_policy_part3" {
       }
 
       resource "aws_iam_role_policy" "devops_runner_policy_part3" {
-        name = "daas-aiml-runner-policy-part2"
+        name = "daas-aiml-runner-policy-part3"
         role = aws_iam_role.devops_runner.id
       
         policy = jsonencode(
