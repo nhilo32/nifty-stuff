@@ -1,3 +1,1 @@
-https://gitlab-ent.esmc-host.com/devops/sandbox/ansible-ec2-exec-demo
-
-https://gitlab-ent.esmc-host.com/users/sign_in
+docker pull registry1.dso.mil/ironbank/opensource/python/python39@sha256:c0025261741ed6fb5f07a1dd17bc6dc17a651e84c3513e20c0ba647ad0645883
