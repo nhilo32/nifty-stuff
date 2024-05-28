@@ -1,1 +1,3 @@
 docker pull registry1.dso.mil/ironbank/opensource/python/python39@sha256:c0025261741ed6fb5f07a1dd17bc6dc17a651e84c3513e20c0ba647ad0645883
+
+ echo "{\"auths\":{\"registry1.dso.mil\":{\"auth\":\"$(printf "%s:%s" "textone" "encrypted text" | base64 | tr -d '\n')\"}}}"
