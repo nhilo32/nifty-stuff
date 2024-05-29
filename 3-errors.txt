@@ -1,9 +1,3 @@
-docker pull registry1.dso.mil/ironbank/opensource/python/python39@sha256:c0025261741ed6fb5f07a1dd17bc6dc17a651e84c3513e20c0ba647ad0645883
+FROM registry1.dso.mil/ironbank/opensource/python/python-pipenv/python310-pipenv:2023.2.18
 
-echo "{\"auths\":{\"registry1.dso.mil\":{\"auth\":\"$(printf "%s:%s" "textone" "encrypted text" | base64 | tr -d '\n')\"}}}"
-
-# - >
-    #   /kaniko/executor
-    #   --context $CI_PROJECT_DIR
-    #   --dockerfile $CI_PROJECT_DIR/Dockerfile
-    #   --destination $ACCOUNT_URI$PROJECT_ID
+RUN pip install boto3 botocore awscli
