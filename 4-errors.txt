@@ -1,137 +1,85 @@
-provider "aws" {
-  region = "us-gov-west-1"
-}
+stages:
+  - build_and_push
+  - sign
+  - update_database
 
+Build and Push:
+  stage: build_and_push
+  image:
+    name: 040402472214.dkr.ecr.us-gov-west-1.amazonaws.com/kaniko:latest
+    entrypoint: [""]
+  script:
+    - echo "{\"auths\":{\"registry1.dso.mil\":{\"auth\":\"$(printf "%s:%s" "$ROBOT_CRED_USERNAME" "$ROBOT_CRED_PASSWORD" | base64 | tr -d '\n')\"}}}" > /kaniko/.docker/config.json
+    - echo $PROJECT_ID
+    - echo $REPO_URL
+    - >
+      /kaniko/executor
+      --context $CI_PROJECT_DIR
+      --dockerfile $CI_PROJECT_DIR/Dockerfile
+      --destination $REPO_URL$PROJECT_ID
+      --digest-file=./digest
+  artifacts:
+    paths:
+      - digest
+    expire_in: 1 hour
+  only:
+    - main
 
-resource "aws_iam_role" "devops_runner" {
-  name = "Platform-DAAS-AIML-GitLab-Runner-A"
+Sign:
+  stage: sign
+  image: 040402472214.dkr.ecr.us-gov-west-1.amazonaws.com/cosign:latest
+  script:
+    - aws ecr get-login-password --region us-gov-west-1 > ./pass
+    - aws kms get-public-key --key-id $COSIGN_KMS_KEY > cosign.pub
+    - public_key_base64=$(jq -r .PublicKey cosign.pub)
+    - echo "-----BEGIN PUBLIC KEY-----" > cosign_pub.pem
+    - echo "$public_key_base64" | fold -w 64 >> cosign_pub.pem
+    - echo "-----END PUBLIC KEY-----" >> cosign_pub.pem
+    - cosign login -u AWS -p $(cat ./pass) $(echo $REPO_URL | sed 's/\///g')
+    - TIMESTAMP=$(date -u +"%Y-%m-%dT%H:%M:%SZ")
+    - cosign sign --key awskms:///$COSIGN_KMS_KEY $REPO_URL$PROJECT_ID@$(cat ./digest) --tlog-upload=false -y
+    - echo $TIMESTAMP > ./sign_timestamp
+    - cosign verify --key cosign_pub.pem $REPO_URL$PROJECT_ID@$(cat ./digest) --private-infrastructure=true > verify
+    - cosign download signature $REPO_URL$PROJECT_ID@$(cat ./digest) > signature
+  artifacts:
+    paths:
+      - verify
+      - signature
+      - sign_timestamp
+    expire_in: 1 hour
+  only:
+    - main
 
-
-  assume_role_policy = jsonencode(
-{
-    "Version": "2012-10-17",
-    "Statement": [
+update_database:
+  stage: update_database
+  image: 040402472214.dkr.ecr.us-gov-west-1.amazonaws.com/cosign:latest
+  dependencies:
+    - Build and Push
+    - Sign
+  script:
+    - cat digest
+    - cat sign_timestamp
+    - |
+      TIMESTAMP=$(cat sign_timestamp)
+      REPO_NAME=$PROJECT_ID
+      HASH_DIGEST=$(cat digest)
+      SIGNATURE_PAYLOAD=$(cat signature | jq .Payload)
+      ENCODED_SIGNATURE=$(cat signature | jq .Base64Signature)
+      JSON=$(cat <<EOF
         {
-            "Sid": "",
-            "Effect": "Allow",
-            "Principal": {
-                "Federated": "arn:aws-us-gov:iam::000361574760:oidc-provider/oidc.eks.us-gov-west-1.amazonaws.com/id/A5CFF8CB2FF8EC9347E14C47685EF36F"
-            },
-            "Action": "sts:AssumeRoleWithWebIdentity",
-            "Condition": {
-                "StringEquals": {
-                    "oidc.eks.us-gov-west-1.amazonaws.com/id/A5CFF8CB2FF8EC9347E14C47685EF36F:sub": "system:serviceaccount:daas-aiml:devops-runner-gitlab-runner"
-                }
-            }
+          "RepoName": {"S": "$REPO_NAME"},
+          "HashDigest": {"S": "$HASH_DIGEST"},
+          "Timestamp": {"S": "$TIMESTAMP"},
+          "SignaturePayload": {"S": $SIGNATURE_PAYLOAD},
+          "EncodedSignature": {"S": $ENCODED_SIGNATURE}
         }
-    ]
-}
-  )
-  tags = {
-    Environment = "production"
-    ManagedBy   = "Gitlab"
-    CreatedBy   = "Terraform"
-  }
-}
+      EOF
+      )
+      aws dynamodb put-item \
+      --table-name ImageSignatures \
+      --item "$JSON" \
+      --return-consumed-capacity TOTAL
+    - echo "Updated DynamoDB with repo name $REPO_NAME, hash digest $HASH_DIGEST, timestamp $TIMESTAMP"
+  only:
+    - main
 
-resource "aws_iam_role_policy" "devops_runner_policy_part1" {
-  name = "daas-aiml-runner-policy-part1"
-  role = aws_iam_role.devops_runner.id
-
-  policy = jsonencode(
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "VisualEditor0",
-            "Effect": "Allow",
-            "Action": [
-                "s3:*"
-            ],
-            "Resource": [
-                "arn:aws-us-gov:s3:::daas*",
-                "arn:aws-us-gov:s3:::daas*/*"
-            ]
-        }
-    ]
-  }
- )
-}
-
-resource "aws_iam_role_policy" "devops_runner_policy_part2" {
-  name = "daas-aiml-runner-policy-part2"
-  role = aws_iam_role.devops_runner.id
-
-  policy = jsonencode(
-{
-    "Version": "2012-10-17",
-    "Statement": [
-        {
-            "Sid": "VisualEditor0",
-            "Effect": "Allow",
-            "Action": [
-                "s3:*"
-            ],
-            "Resource": [
-                "arn:aws-us-gov:s3:::aws2coe-security-tooling*",
-                "arn:aws-us-gov:s3:::aws2coe-security-tooling/*"
-            ]
-        },
-        {
-            "Sid": "ECR",
-            "Effect": "Allow",
-            "Action": [
-                "ecr:*"
-            ],
-            "Resource": [
-                "*"
-            ]
-        },
-        {
-            "Sid": "Statement1",
-            "Effect": "Allow",
-            "Action": [
-                "sts:AssumeRole"
-            ],
-            "Resource": [
-                "*"
-            ]
-        }
-     ]
-   }
- )
-}
-
-resource "aws_iam_role_policy" "devops_runner_policy_part3" {
-    name = "daas-aiml-runner-policy-part3"
-    role = aws_iam_role.devops_runner.id
-  
-    policy = jsonencode(
-        {
-            "Version": "2012-10-17",
-            "Statement": [
-                {
-                    "Effect": "Allow",
-                    "Action": [
-                        "s3:GetObject",
-                        "s3:ListBucket"
-                    ],
-                    "Resource": [
-                        "arn:aws-us-gov:s3:::daasaiml-terraform-state",
-                        "arn:aws-us-gov:s3:::daasaiml-terraform-state/*"
-                    ]
-                },
-                {
-                    "Effect": "Allow",
-                    "Action": [
-                        "dynamodb:GetItem",
-                        "dynamodb:Query",
-                        "dynamodb:Scan",
-                        "dynamodb:DescribeTable"
-                    ],
-                    "Resource": "arn:aws-us-gov:dynamodb:us-gov-west-1:000361574760:table/daasaiml-terraform-lock"
-                }
-            ]
-        }
-    )
-  }
