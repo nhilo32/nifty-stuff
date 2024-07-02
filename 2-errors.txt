@@ -1,5 +1,39 @@
-1. log on to VDI
-2. https://piee-aws.eb.mil/
-3. click top sign-in button
-4. select role, for me its ADFS-DelegatedAdmins
-5. switch roles, you will need the account number and role
+Running with gitlab-runner 16.10.0 (81ab07f6)
+  on gitlab-runner2-5977f5c8f4-dkgg6 t5ZBrQWVZ, system ID: r_ZP3lX8iTFCXO
+Resolving secrets
+00:00
+Preparing the "kubernetes" executor
+00:00
+Using Kubernetes namespace: platform
+Using Kubernetes executor with image 000361574760.dkr.ecr.us-gov-west-1.amazonaws.com/ironbank-python310:latest ...
+Using attach strategy to execute scripts...
+Preparing environment
+00:07
+Using FF_USE_POD_ACTIVE_DEADLINE_SECONDS, the Pod activeDeadlineSeconds will be set to the job timeout: 1h0m0s...
+Waiting for pod platform/runner-t5zbrqwvz-project-77-concurrent-0-dddqsvil to be running, status is Pending
+Waiting for pod platform/runner-t5zbrqwvz-project-77-concurrent-0-dddqsvil to be running, status is Pending
+	ContainersNotReady: "containers with unready status: [build helper]"
+	ContainersNotReady: "containers with unready status: [build helper]"
+Running on runner-t5zbrqwvz-project-77-concurrent-0-dddqsvil via gitlab-runner2-5977f5c8f4-dkgg6...
+Getting source from Git repository
+00:01
+Fetching changes with git depth set to 20...
+Initialized empty Git repository in /builds/platform/audit/cloud-trail-auditor/.git/
+Created fresh repository.
+Checking out eedc42f5 as detached HEAD (ref is main)...
+Skipping Git submodules setup
+Executing "step_script" stage of the job script
+00:09
+$ pip install -r requirements.txt
+Defaulting to user installation because normal site-packages is not writeable
+Requirement already satisfied: boto3 in /home/python/.local/lib/python3.10/site-packages (from -r requirements.txt (line 1)) (1.34.137)
+WARNING: Retrying (Retry(total=4, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))': /simple/pandas/
+WARNING: Retrying (Retry(total=3, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))': /simple/pandas/
+WARNING: Retrying (Retry(total=2, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))': /simple/pandas/
+WARNING: Retrying (Retry(total=1, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))': /simple/pandas/
+WARNING: Retrying (Retry(total=0, connect=None, read=None, redirect=None, status=None)) after connection broken by 'ProtocolError('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))': /simple/pandas/
+ERROR: Could not find a version that satisfies the requirement pandas (from versions: none)
+ERROR: No matching distribution found for pandas
+[notice] A new release of pip is available: 24.0 -> 24.1.1
+[notice] To update, run: pip install --upgrade pip
+Cleaning up project directory and file based variables
